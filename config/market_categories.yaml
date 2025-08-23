@@ -1,0 +1,1869 @@
+# A2AI - Advanced Financial Analysis AI
+# Market Categories Configuration
+# 市場カテゴリー定義: 世界シェア高維持/低下中/完全失失の3分類
+
+# メタデータ
+metadata:
+  version: "1.0.0"
+  created_date: "2024-01-01"
+  analysis_period: "1984-2024"
+  total_companies: 150
+  total_markets: 15
+  description: "企業ライフサイクル全体を分析対象とした市場カテゴリー分類"
+
+# 市場カテゴリー定義
+market_categories:
+  
+  # ✅ 現在もシェアが高い市場（5市場×10社 = 50社）
+  high_share_markets:
+    description: "現在も日本企業が高い世界シェアを維持している市場"
+    total_companies: 50
+    
+    markets:
+      # 1. ロボット市場
+      robotics:
+        market_name: "ロボット市場"
+        market_description: "産業用ロボット・CNC・協働ロボット・精密機械"
+        global_market_size: "約15兆円（2024年）"
+        japanese_share: "約50-60%"
+        key_technologies: ["産業用ロボット", "CNC制御", "サーボモータ", "精密軸受"]
+        
+        companies:
+          - company_id: "6954"
+            company_name: "ファナック"
+            primary_business: "産業用ロボット・CNC"
+            market_position: "世界最大手"
+            establishment_year: 1972
+            listing_status: "上場"
+            lifecycle_stage: "成熟・継続成長"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "6506"
+            company_name: "安川電機"
+            primary_business: "サーボモータ・ロボット"
+            market_position: "世界2位級"
+            establishment_year: 1915
+            listing_status: "上場"
+            lifecycle_stage: "成熟・安定"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "7012"
+            company_name: "川崎重工業"
+            primary_business: "産業用ロボット・医療ロボット"
+            market_position: "世界3位級"
+            establishment_year: 1896
+            listing_status: "上場"
+            lifecycle_stage: "成熟・多角化"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "6474"
+            company_name: "不二越"
+            primary_business: "溶接ロボット"
+            market_position: "専門特化"
+            establishment_year: 1928
+            listing_status: "上場"
+            lifecycle_stage: "成熟・特化"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "DENSO_WAVE"
+            company_name: "デンソーウェーブ"
+            primary_business: "協働ロボット、産業用ロボット"
+            market_position: "新興強者"
+            establishment_year: 2001
+            listing_status: "非上場（デンソー子会社）"
+            lifecycle_stage: "成長・拡大"
+            data_availability: "2001-2024 (23年、親会社補完)"
+            parent_company: "6902_デンソー"
+            
+          - company_id: "6503"
+            company_name: "三菱電機"
+            primary_business: "ロボット、FA機器"
+            market_position: "総合電機大手"
+            establishment_year: 1921
+            listing_status: "上場"
+            lifecycle_stage: "成熟・多角化"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "6645"
+            company_name: "オムロン"
+            primary_business: "ピッキング・搬送ロボット"
+            market_position: "制御機器大手"
+            establishment_year: 1933
+            listing_status: "上場"
+            lifecycle_stage: "成熟・技術革新"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "6481"
+            company_name: "THK"
+            primary_business: "ロボットのアクチュエータ部品"
+            market_position: "部品専門"
+            establishment_year: 1971
+            listing_status: "上場"
+            lifecycle_stage: "成熟・グローバル展開"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "6471"
+            company_name: "NSK"
+            primary_business: "精密ロボット軸受"
+            market_position: "軸受世界大手"
+            establishment_year: 1916
+            listing_status: "上場"
+            lifecycle_stage: "成熟・高付加価値"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "7013"
+            company_name: "IHI"
+            primary_business: "重工ロボットシステム（建設等）"
+            market_position: "重工業大手"
+            establishment_year: 1853
+            listing_status: "上場"
+            lifecycle_stage: "成熟・事業転換"
+            data_availability: "1984-2024 (40年完全)"
+
+      # 2. 内視鏡市場（医療用）
+      endoscopy:
+        market_name: "内視鏡市場（医療用）"
+        market_description: "医療用内視鏡・光学技術・画像診断システム"
+        global_market_size: "約2兆円（2024年）"
+        japanese_share: "約70-80%"
+        key_technologies: ["内視鏡光学技術", "画像処理", "医療AI", "微細加工"]
+        
+        companies:
+          - company_id: "7733"
+            company_name: "オリンパス"
+            primary_business: "内視鏡（世界最大手）"
+            market_position: "世界最大手"
+            establishment_year: 1919
+            listing_status: "上場"
+            lifecycle_stage: "成熟・医療特化"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "7741"
+            company_name: "HOYA（PENTAX Medical）"
+            primary_business: "内視鏡・光学技術"
+            market_position: "世界2位"
+            establishment_year: 1941
+            listing_status: "上場"
+            lifecycle_stage: "成熟・医療・光学"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "4901"
+            company_name: "富士フイルム"
+            primary_business: "内視鏡、医療画像診断システム"
+            market_position: "医療転換成功"
+            establishment_year: 1934
+            listing_status: "上場"
+            lifecycle_stage: "事業転換・成功"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "CANON_MEDICAL"
+            company_name: "キヤノンメディカルシステムズ"
+            primary_business: "内視鏡画像処理、超音波診断装置"
+            market_position: "画像診断大手"
+            establishment_year: 2016
+            listing_status: "非上場（キヤノン子会社）"
+            lifecycle_stage: "買収・統合"
+            data_availability: "2016-2024 (統合前東芝メディカル1984-2016)"
+            parent_company: "7751_キヤノン"
+            predecessor: "東芝メディカルシステムズ"
+            
+          - company_id: "7701"
+            company_name: "島津製作所"
+            primary_business: "医療用X線・内視鏡検査分析装置"
+            market_position: "分析機器大手"
+            establishment_year: 1875
+            listing_status: "上場"
+            lifecycle_stage: "老舗・技術革新"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "4902"
+            company_name: "コニカミノルタ"
+            primary_business: "画像診断・医療光学システム"
+            market_position: "医療転換中"
+            establishment_year: 2003
+            listing_status: "上場"
+            lifecycle_stage: "事業転換・進行中"
+            data_availability: "2003-2024 (統合前コニカ・ミノルタ1984-2003)"
+            predecessor: "コニカ・ミノルタ統合"
+            
+          - company_id: "6758"
+            company_name: "ソニー（家電部門）"
+            primary_business: "テレビ・オーディオ"
+            market_position: "テレビ等は世界シェア低下、音響・ゲームへ集中"
+            establishment_year: 1946
+            listing_status: "上場"
+            lifecycle_stage: "事業転換・エンタメ集中"
+            data_availability: "1984-2024 (40年完全)"
+            extinction_factors: ["韓国TV競争敗北", "家電事業縮小"]
+            current_status: "家電縮小・コンテンツ集中"
+            
+          - company_id: "6752"
+            company_name: "パナソニック"
+            primary_business: "白物家電"
+            market_position: "白物家電は縮小し住宅・B2Bへ軸足を移行"
+            establishment_year: 1918
+            listing_status: "上場"
+            lifecycle_stage: "事業転換・B2B集中"
+            data_availability: "1984-2024 (40年完全)"
+            extinction_factors: ["白物家電競争力喪失", "B2B転換"]
+            current_status: "住宅・車載・B2B集中"
+            
+          - company_id: "6753"
+            company_name: "シャープ"
+            primary_business: "テレビ・液晶・家電"
+            market_position: "テレビ等を中心に縮小、鴻海傘下で一部再建"
+            establishment_year: 1912
+            listing_status: "上場"
+            lifecycle_stage: "外資傘下・再建中"
+            data_availability: "1984-2024 (40年完全)"
+            extinction_factors: ["液晶TV競争敗北", "経営破綻"]
+            current_status: "鴻海傘下・事業再構築中"
+            parent_company: "鴻海精密工業"
+            
+          - company_id: "TOSHIBA_LIFESTYLE"
+            company_name: "東芝ライフスタイル"
+            primary_business: "冷蔵庫・洗濯機"
+            market_position: "冷蔵庫・洗濯機部門を中国美的集団に売却"
+            establishment_year: 2018
+            listing_status: "非上場（美的集団傘下）"
+            lifecycle_stage: "売却・外資傘下"
+            data_availability: "2018-2024 (売却前東芝1984-2018)"
+            extinction_factors: ["東芝経営危機", "白物家電不採算"]
+            current_status: "美的集団傘下・中国企業化"
+            predecessor: "東芝家電事業部"
+            parent_company: "美的集団"
+            
+          - company_id: "6503"
+            company_name: "三菱電機（家電部門）"
+            primary_business: "エアコン・家電"
+            market_position: "国内中心に残存するも世界市場では存在感低下"
+            establishment_year: 1921
+            listing_status: "上場"
+            lifecycle_stage: "家電縮小・B2B集中"
+            data_availability: "1984-2024 (40年完全)"
+            extinction_factors: ["グローバル家電競争力喪失", "B2B集中"]
+            current_status: "重電・FA・自動車集中"
+            
+          - company_id: "HITACHI_GLS"
+            company_name: "日立グローバルライフソリューションズ"
+            primary_business: "白物家電"
+            market_position: "白物家電部門を統合・縮小"
+            establishment_year: 2018
+            listing_status: "非上場（日立子会社）"
+            lifecycle_stage: "分社・事業縮小"
+            data_availability: "2018-2024 (分社前日立1984-2018)"
+            extinction_factors: ["日立事業集中", "家電不採算"]
+            current_status: "IT・インフラ集中"
+            predecessor: "日立家電事業部"
+            parent_company: "6501_日立製作所"
+            
+          - company_id: "SANYO_EXTINCT"
+            company_name: "三洋電機（旧）"
+            primary_business: "家電・AV機器"
+            market_position: "パナソニックに吸収・解体され、完全に消滅"
+            establishment_year: 1950
+            listing_status: "消滅（2012年）"
+            lifecycle_stage: "経営破綻・吸収消滅"
+            data_availability: "1984-2012 (吸収まで28年)"
+            extinction_factors: ["経営破綻", "パナソニック吸収"]
+            current_status: "完全消滅・ブランド廃止"
+            extinction_year: 2012
+            acquirer: "6752_パナソニック"
+            
+          - company_id: "JVC_KENWOOD"
+            company_name: "ビクター（JVC）"
+            primary_business: "映像機器・AV機器"
+            market_position: "映像機器部門縮小、ケンウッドと統合"
+            establishment_year: 2008
+            listing_status: "上場"
+            lifecycle_stage: "統合・AV縮小"
+            data_availability: "2008-2024 (統合前JVC1984-2008)"
+            extinction_factors: ["AV機器競争敗北", "デジタル化遅れ"]
+            current_status: "業務用AV・カーナビ中心"
+            predecessor: "日本ビクター・ケンウッド統合"
+            
+          - company_id: "AIWA_EXTINCT"
+            company_name: "アイワ（旧）"
+            primary_business: "オーディオ機器"
+            market_position: "ソニー傘下で縮小、近年ブランド再使用あり（実態別企業）"
+            establishment_year: 1951
+            listing_status: "消滅（2002年）"
+            lifecycle_stage: "吸収消滅・ブランド継承"
+            data_availability: "1984-2002 (ソニー吸収まで18年)"
+            extinction_factors: ["デジタル化対応遅れ", "ソニー吸収"]
+            current_status: "ブランドのみ残存（別企業）"
+            extinction_year: 2002
+            acquirer: "6758_ソニー"
+            
+          - company_id: "FUNAI"
+            company_name: "船井電機"
+            primary_business: "テレビ・AV機器"
+            market_position: "海外TVシェアかつて有するも現在は事業縮小"
+            establishment_year: 1961
+            listing_status: "上場"
+            lifecycle_stage: "事業縮小・撤退"
+            data_availability: "1984-2024 (40年完全)"
+            extinction_factors: ["液晶TV競争敗北", "海外事業撤退"]
+            current_status: "事業大幅縮小・ニッチ市場"
+
+      # 2. 半導体市場（ロジック・メモリ）
+      semiconductors:
+        market_name: "半導体市場（ロジック・メモリ）"
+        market_description: "メモリ・ロジック半導体・マイコン"
+        global_market_size: "約60兆円（2024年）"
+        japanese_share: "約5-8%（ピーク時50%から壊滅的低下）"
+        extinction_factors: ["韓国・台湾・中国台頭", "設備投資競争敗北", "技術標準化遅れ"]
+        
+        companies:
+          - company_id: "KIOXIA"
+            company_name: "東芝（メモリ部門）"
+            primary_business: "NAND型フラッシュメモリ"
+            market_position: "キオクシアへ分社化、経営縮小"
+            establishment_year: 2018
+            listing_status: "非上場"
+            lifecycle_stage: "分社・競争力低下"
+            data_availability: "2018-2024 (分社前東芝1984-2018)"
+            extinction_factors: ["東芝経営危機", "韓国競合"]
+            current_status: "キオクシア・競争力低下"
+            predecessor: "東芝メモリ事業部"
+            
+          - company_id: "6501"
+            company_name: "日立製作所（旧半導体）"
+            primary_business: "DRAM・ロジック"
+            market_position: "ルネサス等に統合・再編"
+            establishment_year: 1910
+            listing_status: "上場"
+            lifecycle_stage: "半導体撤退・IT集中"
+            data_availability: "1984-2010 (ルネサス統合まで)"
+            extinction_factors: ["DRAM競争敗北", "事業統合"]
+            current_status: "IT・インフラ集中"
+            successor: "6723_ルネサスエレクトロニクス"
+            
+          - company_id: "6503"
+            company_name: "三菱電機（旧半導体）"
+            primary_business: "DRAM・ロジック"
+            market_position: "半導体から縮小撤退し一部統合"
+            establishment_year: 1921
+            listing_status: "上場"
+            lifecycle_stage: "半導体撤退・重電集中"
+            data_availability: "1984-2010 (ルネサス統合まで)"
+            extinction_factors: ["DRAM競争敗北", "重電集中"]
+            current_status: "重電・FA・自動車集中"
+            successor: "6723_ルネサスエレクトロニクス"
+            
+          - company_id: "6701"
+            company_name: "NEC（旧半導体）"
+            primary_business: "DRAM・マイコン"
+            market_position: "ルネサスへ事業統合し、実質撤退"
+            establishment_year: 1899
+            listing_status: "上場"
+            lifecycle_stage: "半導体撤退・IT集中"
+            data_availability: "1984-2010 (ルネサス統合まで)"
+            extinction_factors: ["DRAM競争敗北", "IT事業集中"]
+            current_status: "IT・ネットワーク集中"
+            successor: "6723_ルネサスエレクトロニクス"
+            
+          - company_id: "6702"
+            company_name: "富士通（旧半導体）"
+            primary_business: "DRAM・ロジック"
+            market_position: "半導体部門売却し撤退"
+            establishment_year: 1935
+            listing_status: "上場"
+            lifecycle_stage: "半導体撤退・IT集中"
+            data_availability: "1984-2020 (半導体売却まで)"
+            extinction_factors: ["DRAM競争敗北", "IT集中"]
+            current_status: "IT・DX集中"
+            
+          - company_id: "6752"
+            company_name: "松下電器（旧パナソニック半導体）"
+            primary_business: "半導体製造"
+            market_position: "半導体製造を完全撤退"
+            establishment_year: 1918
+            listing_status: "上場"
+            lifecycle_stage: "半導体完全撤退"
+            data_availability: "1984-2014 (半導体撤退まで)"
+            extinction_factors: ["半導体競争敗北", "家電・車載集中"]
+            current_status: "住宅・車載・B2B集中"
+            
+          - company_id: "6758"
+            company_name: "ソニー（旧ロジック半導体）"
+            primary_business: "ロジック半導体"
+            market_position: "一部イメージセンサーに集中（ロジックは撤退）"
+            establishment_year: 1946
+            listing_status: "上場"
+            lifecycle_stage: "汎用半導体撤退・センサー特化"
+            data_availability: "1984-2024 (40年完全)"
+            extinction_factors: ["汎用半導体競争敗北", "センサー特化"]
+            current_status: "イメージセンサー・エンタメ集中"
+            
+          - company_id: "6723"
+            company_name: "ルネサスエレクトロニクス"
+            primary_business: "マイコン・車載半導体"
+            market_position: "統合企業だが世界市場では追い越され後退"
+            establishment_year: 2010
+            listing_status: "上場"
+            lifecycle_stage: "統合・競争力低下"
+            data_availability: "2010-2024 (統合前各社1984-2010)"
+            extinction_factors: ["汎用半導体競争力不足", "車載特化"]
+            current_status: "車載マイコン特化・シェア低下"
+            predecessor: "日立・三菱・NEC半導体統合"
+            
+          - company_id: "6753"
+            company_name: "シャープ（旧半導体）"
+            primary_business: "液晶ドライバ・半導体"
+            market_position: "半導体事業からは撤退"
+            establishment_year: 1912
+            listing_status: "上場"
+            lifecycle_stage: "半導体撤退・液晶集中"
+            data_availability: "1984-2016 (半導体撤退まで)"
+            extinction_factors: ["液晶関連以外競争力不足", "経営危機"]
+            current_status: "鴻海傘下・液晶集中"
+            parent_company: "鴻海精密工業"
+            
+          - company_id: "6963"
+            company_name: "ローム"
+            primary_business: "アナログ半導体"
+            market_position: "特定分野は残存も汎用半導体ではシェア低下"
+            establishment_year: 1958
+            listing_status: "上場"
+            lifecycle_stage: "アナログ特化・汎用撤退"
+            data_availability: "1984-2024 (40年完全)"
+            extinction_factors: ["汎用デジタル競争敗北", "アナログ特化"]
+            current_status: "アナログ・パワー半導体特化"
+
+      # 3. スマートフォン市場
+      smartphones:
+        market_name: "スマートフォン市場"
+        market_description: "スマートフォン・携帯端末"
+        global_market_size: "約40兆円（2024年）"
+        japanese_share: "約1%未満（ピーク時10%から壊滅）"
+        extinction_factors: ["iPhone・Android参入遅れ", "ガラケー依存", "海外展開失敗"]
+        
+        companies:
+          - company_id: "6758"
+            company_name: "ソニー（Xperia）"
+            primary_business: "スマートフォン"
+            market_position: "存在はするが世界シェアは1％未満、国内偏重"
+            establishment_year: 1946
+            listing_status: "上場"
+            lifecycle_stage: "スマホ事業縮小・コンテンツ集中"
+            data_availability: "1984-2024 (40年完全)"
+            extinction_factors: ["Android競争敗北", "グローバル展開失敗"]
+            current_status: "ニッチ市場・エンタメ集中"
+            
+          - company_id: "6753"
+            company_name: "シャープ（AQUOS）"
+            primary_business: "スマートフォン"
+            market_position: "国内では強いがグローバルでは競争力喪失"
+            establishment_year: 1912
+            listing_status: "上場"
+            lifecycle_stage: "スマホ競争力喪失・液晶集中"
+            data_availability: "1984-2024 (40年完全)"
+            extinction_factors: ["グローバル競争敗北", "技術差別化不足"]
+            current_status: "国内中心・鴻海傘下"
+            parent_company: "鴻海精密工業"
+            
+          - company_id: "6971"
+            company_name: "京セラ"
+            primary_business: "スマートフォン・携帯"
+            market_position: "2023年スマホ事業からの撤退を表明"
+            establishment_year: 1959
+            listing_status: "上場"
+            lifecycle_stage: "スマホ撤退・セラミック集中"
+            data_availability: "1984-2023 (スマホ撤退まで)"
+            extinction_factors: ["スマホ競争力不足", "事業撤退"]
+            current_status: "セラミック・電子部品集中"
+            
+          - company_id: "6752"
+            company_name: "パナソニック"
+            primary_business: "携帯電話（過去）"
+            market_position: "既にスマホ事業から撤退"
+            establishment_year: 1918
+            listing_status: "上場"
+            lifecycle_stage: "携帯撤退・B2B集中"
+            data_availability: "1984-2012 (携帯撤退まで)"
+            extinction_factors: ["スマホ参入遅れ", "B2B転換"]
+            current_status: "住宅・車載・B2B集中"
+            
+          - company_id: "FCNT_BANKRUPT"
+            company_name: "富士通（arrows）"
+            primary_business: "スマートフォン"
+            market_position: "FCNTへ分社も、2023年に経営破綻"
+            establishment_year: 2016
+            listing_status: "破綻（2023年）"
+            lifecycle_stage: "分社・経営破綻"
+            data_availability: "2016-2023 (分社前富士通1984-2016)"
+            extinction_factors: ["スマホ競争力不足", "経営破綻"]
+            current_status: "完全撤退・事業終了"
+            predecessor: "富士通携帯事業部"
+            extinction_year: 2023
+            
+          - company_id: "6701"
+            company_name: "NEC"
+            primary_business: "携帯電話（過去）"
+            market_position: "かつての「N」シリーズ、撤退済"
+            establishment_year: 1899
+            listing_status: "上場"
+            lifecycle_stage: "携帯撤退・IT集中"
+            data_availability: "1984-2013 (携帯撤退まで)"
+            extinction_factors: ["スマホ転換失敗", "IT事業集中"]
+            current_status: "IT・ネットワーク集中"
+            
+          - company_id: "6501"
+            company_name: "日立製作所"
+            primary_business: "携帯電話（過去）"
+            market_position: "合弁・撤退済、携帯端末部門は消滅"
+            establishment_year: 1910
+            listing_status: "上場"
+            lifecycle_stage: "携帯撤退・インフラ集中"
+            data_availability: "1984-2012 (携帯撤退まで)"
+            extinction_factors: ["携帯競争敗北", "インフラ集中"]
+            current_status: "IT・インフラ集中"
+            
+          - company_id: "6503"
+            company_name: "三菱電機"
+            primary_business: "携帯電話（過去）"
+            market_position: "フィーチャーフォン終了後、撤退"
+            establishment_year: 1921
+            listing_status: "上場"
+            lifecycle_stage: "携帯撤退・重電集中"
+            data_availability: "1984-2011 (携帯撤退まで)"
+            extinction_factors: ["スマホ参入断念", "重電集中"]
+            current_status: "重電・FA・自動車集中"
+            
+          - company_id: "6502"
+            company_name: "東芝"
+            primary_business: "携帯電話（過去）"
+            market_position: "携帯端末から撤退済み"
+            establishment_year: 1875
+            listing_status: "上場"
+            lifecycle_stage: "携帯撤退・事業再編"
+            data_availability: "1984-2010 (携帯撤退まで)"
+            extinction_factors: ["スマホ競争敗北", "経営危機"]
+            current_status: "インフラ・エネルギー集中"
+            
+          - company_id: "6952"
+            company_name: "カシオ計算機"
+            primary_business: "携帯電話（過去）"
+            market_position: "携帯事業は撤退、時計・計測機器へ転換"
+            establishment_year: 1946
+            listing_status: "上場"
+            lifecycle_stage: "携帯撤退・時計特化"
+            data_availability: "1984-2018 (携帯撤退まで)"
+            extinction_factors: ["携帯競争敗北", "G-SHOCK集中"]
+            current_status: "時計・計測機器集中"
+
+      # 4. PC市場
+      personal_computers:
+        market_name: "PC市場"
+        market_description: "デスクトップ・ノートパソコン"
+        global_market_size: "約35兆円（2024年）"
+        japanese_share: "約3%（ピーク時15%から大幅低下）"
+        extinction_factors: ["海外メーカー価格競争", "Wintel標準化", "アジア生産拠点化"]
+        
+        companies:
+          - company_id: "VAIO"
+            company_name: "ソニー（VAIO）"
+            primary_business: "パソコン"
+            market_position: "ブランド売却・縮小、今は中堅企業として独立"
+            establishment_year: 2014
+            listing_status: "非上場（独立）"
+            lifecycle_stage: "スピンオフ・事業縮小"
+            data_availability: "2014-2024 (分離前ソニー1984-2014)"
+            extinction_factors: ["PC価格競争敗北", "ソニー事業売却"]
+            current_status: "独立企業・ニッチ市場"
+            predecessor: "ソニーVAIO事業部"
+            
+          - company_id: "6701"
+            company_name: "NEC"
+            primary_business: "パソコン"
+            market_position: "Lenovoとの合弁により独立性を喪失"
+            establishment_year: 1899
+            listing_status: "上場"
+            lifecycle_stage: "PC事業外資合弁"
+            data_availability: "1984-2024 (40年完全)"
+            extinction_factors: ["PC競争力喪失", "Lenovo合弁"]
+            current_status: "IT・ネットワーク集中"
+            
+          - company_id: "6702"
+            company_name: "富士通"
+            primary_business: "パソコン"
+            market_position: "Lenovo合弁、富士通クライアント社に再編され海外展開縮小"
+            establishment_year: 1935
+            listing_status: "上場"
+            lifecycle_stage: "PC事業外資合弁"
+            data_availability: "1984-2024 (40年完全)"
+            extinction_factors: ["PC競争力喪失", "Lenovo合弁"]
+            current_status: "IT・DX集中"
+            
+          - company_id: "DYNABOOK"
+            company_name: "東芝（dynabook）"
+            primary_business: "ノートパソコン"
+            market_position: "シャープ→鴻海へ売却、ブランド維持も事業縮小"
+            establishment_year: 2019
+            listing_status: "非上場（シャープ傘下）"
+            lifecycle_stage: "売却・事業縮小"
+            data_availability: "2019-2024 (売却前東芝1984-2019)"
+            extinction_factors: ["東芝経営危機", "PC事業不採算"]
+            current_status: "シャープ傘下・事業縮小"
+            predecessor: "東芝dynabook事業部"
+            parent_company: "6753_シャープ"
+            
+          - company_id: "6753"
+            company_name: "シャープ"
+            primary_business: "パソコン（過去）"
+            market_position: "過去にPCを製造、現在は撤退"
+            establishment_year: 1912
+            listing_status: "上場"
+            lifecycle_stage: "PC撤退・液晶集中"
+            data_availability: "1984-2010 (PC撤退まで)"
+            extinction_factors: ["PC競争敗北", "液晶集中"]
+            current_status: "鴻海傘下・液晶集中"
+            parent_company: "鴻海精密工業"
+            
+          - company_id: "6752"
+            company_name: "パナソニック"
+            primary_business: "Let's note・タフブック"
+            market_position: "Let's note など国内専業に近く海外展開は限定的"
+            establishment_year: 1918
+            listing_status: "上場"
+            lifecycle_stage: "PC事業国内特化"
+            data_availability: "1984-2024 (40年完全)"
+            extinction_factors: ["海外PC競争力不足", "国内特化"]
+            current_status: "住宅・車載集中・PC国内のみ"
+            
+          - company_id: "6501"
+            company_name: "日立製作所"
+            primary_business: "パソコン（過去）"
+            market_position: "かつてPC製造していたが既に撤退"
+            establishment_year: 1910
+            listing_status: "上場"
+            lifecycle_stage: "PC撤退・IT集中"
+            data_availability: "1984-2005 (PC撤退まで)"
+            extinction_factors: ["PC競争敗北", "IT集中"]
+            current_status: "IT・インフラ集中"
+            
+          - company_id: "6503"
+            company_name: "三菱電機"
+            primary_business: "パソコン（過去）"
+            market_position: "法人向けPCなど撤退済"
+            establishment_year: 1921
+            listing_status: "上場"
+            lifecycle_stage: "PC撤退・重電集中"
+            data_availability: "1984-2009 (PC撤退まで)"
+            extinction_factors: ["PC競争敗北", "重電集中"]
+            current_status: "重電・FA・自動車集中"
+            
+          - company_id: "6952"
+            company_name: "カシオ計算機"
+            primary_business: "パソコン（過去）"
+            market_position: "産業端末を除きPC市場から撤退"
+            establishment_year: 1946
+            listing_status: "上場"
+            lifecycle_stage: "PC撤退・時計特化"
+            data_availability: "1984-2012 (PC撤退まで)"
+            extinction_factors: ["PC競争敗北", "G-SHOCK集中"]
+            current_status: "時計・計測機器集中"
+            
+          - company_id: "NEC_HOME_EXTINCT"
+            company_name: "日本電気ホームエレクトロニクス"
+            primary_business: "家庭用PC"
+            market_position: "NEC再編により統合・消滅"
+            establishment_year: 1983
+            listing_status: "消滅（2000年）"
+            lifecycle_stage: "統合・消滅"
+            data_availability: "1984-2000 (統合まで16年)"
+            extinction_factors: ["NEC事業統合", "PC事業再編"]
+            current_status: "完全消滅・NEC本体統合"
+            extinction_year: 2000
+            acquirer: "6701_NEC"
+
+      # 5. 通信機器市場（携帯・基地局・交換機など）
+      telecommunications:
+        market_name: "通信機器市場（携帯・基地局・交換機など）"
+        market_description: "通信基地局・交換機・通信端末"
+        global_market_size: "約25兆円（2024年）"
+        japanese_share: "約3-5%（ピーク時25%から大幅低下）"
+        extinction_factors: ["欧州・中国メーカー台頭", "5G標準化遅れ", "グローバル展開失敗"]
+        
+        companies:
+          - company_id: "6701"
+            company_name: "NEC"
+            primary_business: "基地局・通信システム"
+            market_position: "基地局システム開発続けるが世界では存在感薄"
+            establishment_year: 1899
+            listing_status: "上場"
+            lifecycle_stage: "通信機器シェア低下・IT集中"
+            data_availability: "1984-2024 (40年完全)"
+            extinction_factors: ["5G競争遅れ", "欧州中国競合"]
+            current_status: "IT・ネットワーク集中・通信機器縮小"
+            
+          - company_id: "6702"
+            company_name: "富士通"
+            primary_business: "基地局・通信システム"
+            market_position: "基地局開発は継続するがシェア縮小"
+            establishment_year: 1935
+            listing_status: "上場"
+            lifecycle_stage: "通信機器シェア低下・IT集中"
+            data_availability: "1984-2024 (40年完全)"
+            extinction_factors: ["5G競争遅れ", "グローバル展開失敗"]
+            current_status: "IT・DX集中・通信機器縮小"
+            
+          - company_id: "6501"
+            company_name: "日立製作所"
+            primary_business: "通信機器（過去）"
+            market_position: "通信機器部門縮小"
+            establishment_year: 1910
+            listing_status: "上場"
+            lifecycle_stage: "通信機器撤退・インフラ集中"
+            data_availability: "1984-2020 (通信機器縮小まで)"
+            extinction_factors: ["通信機器競争敗北", "インフラ集中"]
+            current_status: "IT・インフラ集中"
+            
+          - company_id: "6752"
+            company_name: "松下電器（パナソニック）"
+            primary_business: "通信端末・PHS（過去）"
+            market_position: "通信端末・PHS等すでに撤退"
+            establishment_year: 1918
+            listing_status: "上場"
+            lifecycle_stage: "通信撤退・B2B集中"
+            data_availability: "1984-2008 (通信撤退まで)"
+            extinction_factors: ["PHS衰退", "携帯競争敗北"]
+            current_status: "住宅・車載・B2B集中"
+            
+          - company_id: "6753"
+            company_name: "シャープ"
+            primary_business: "PHS・ガラケー（過去）"
+            market_position: "PHS・ガラケー製造撤退"
+            establishment_year: 1912
+            listing_status: "上場"
+            lifecycle_stage: "通信撤退・液晶集中"
+            data_availability: "1984-2013 (携帯撤退まで)"
+            extinction_factors: ["携帯競争敗北", "スマホ参入遅れ"]
+            current_status: "鴻海傘下・液晶集中"
+            parent_company: "鴻海精密工業"
+            
+          - company_id: "6758"
+            company_name: "ソニー（旧エリクソン合弁）"
+            primary_business: "携帯通信機器（過去）"
+            market_position: "携帯通信機器事業は再編・撤退"
+            establishment_year: 1946
+            listing_status: "上場"
+            lifecycle_stage: "通信機器撤退・エンタメ集中"
+            data_availability: "1984-2012 (エリクソン合弁解消まで)"
+            extinction_factors: ["通信機器競争敗北", "エンタメ集中"]
+            current_status: "エンタメ・イメージセンサー集中"
+            
+          - company_id: "6503"
+            company_name: "三菱電機"
+            primary_business: "携帯電話・通信機器（過去）"
+            market_position: "携帯電話事業・通信機器ともに撤退"
+            establishment_year: 1921
+            listing_status: "上場"
+            lifecycle_stage: "通信撤退・重電集中"
+            data_availability: "1984-2011 (通信撤退まで)"
+            extinction_factors: ["携帯競争敗北", "重電集中"]
+            current_status: "重電・FA・自動車集中"
+            
+          - company_id: "6971"
+            company_name: "京セラ"
+            primary_business: "PHS・携帯（過去）"
+            market_position: "PHS主導したが撤退済"
+            establishment_year: 1959
+            listing_status: "上場"
+            lifecycle_stage: "通信撤退・セラミック集中"
+            data_availability: "1984-2023 (携帯撤退まで)"
+            extinction_factors: ["PHS衰退", "スマホ競争敗北"]
+            current_status: "セラミック・電子部品集中"
+            
+          - company_id: "6952"
+            company_name: "カシオ計算機"
+            primary_business: "携帯・通信機器（過去）"
+            market_position: "携帯・通信機器から完全撤退"
+            establishment_year: 1946
+            listing_status: "上場"
+            lifecycle_stage: "通信撤退・時計特化"
+            data_availability: "1984-2018 (通信撤退まで)"
+            extinction_factors: ["携帯競争敗北", "G-SHOCK集中"]
+            current_status: "時計・計測機器集中"
+            
+          - company_id: "6751"
+            company_name: "日本無線（JRC）"
+            primary_business: "船舶・防衛通信"
+            market_position: "船舶・防衛中心に残存、民間通信では競争力低下"
+            establishment_year: 1915
+            listing_status: "上場"
+            lifecycle_stage: "民間通信撤退・防衛特化"
+            data_availability: "1984-2024 (40年完全)"
+            extinction_factors: ["民間通信競争敗北", "防衛特化"]
+            current_status: "防衛・船舶通信特化"
+
+# データ収集・分析パラメータ
+analysis_parameters:
+  
+  # 時系列分析設定
+  temporal_analysis:
+    full_analysis_period: "1984-2024"
+    analysis_window_years: 40
+    minimum_data_years: 5
+    lifecycle_stages:
+      - "startup"      # 設立～10年
+      - "growth"       # 成長期
+      - "maturity"     # 成熟期
+      - "decline"      # 衰退期
+      - "extinction"   # 消滅
+      - "transformation" # 事業転換
+      - "acquisition"   # 買収・統合
+  
+  # 生存分析設定
+  survival_analysis:
+    event_types:
+      - "bankruptcy"     # 倒産
+      - "acquisition"    # 買収
+      - "business_exit"  # 事業撤退
+      - "spinoff"        # 分社化
+      - "delisting"      # 上場廃止
+    
+    survival_factors:
+      - "financial_health"    # 財務健全性
+      - "market_position"     # 市場地位
+      - "technology_innovation" # 技術革新
+      - "global_expansion"    # グローバル展開
+      - "business_diversification" # 事業多角化
+  
+  # 因果推論設定
+  causal_inference:
+    methods:
+      - "difference_in_differences"  # 差分差分法
+      - "instrumental_variables"     # 操作変数法
+      - "propensity_score_matching"  # 傾向スコアマッチング
+      - "regression_discontinuity"   # 回帰不連続
+    
+    treatment_events:
+      - "market_entry"        # 市場参入
+      - "business_merger"     # 事業統合
+      - "foreign_acquisition" # 外資買収
+      - "regulatory_change"   # 規制変更
+      - "technology_shift"    # 技術転換
+
+# 評価項目・要因項目マッピング
+evaluation_factor_mapping:
+  
+  # 従来6項目 + 新規3項目 = 9評価項目
+  evaluation_metrics:
+    1: "売上高"
+    2: "売上高成長率"
+    3: "売上高営業利益率"
+    4: "売上高当期純利益率"
+    5: "ROE"
+    6: "売上高付加価値率"
+    7: "企業存続確率"       # 新規
+    8: "新規事業成功率"     # 新規
+    9: "事業継承成功度"     # 新規
+  
+  # 各評価項目に対して23要因項目（従来20 + 新規3）
+  factor_metrics:
+    base_factors: 20    # 従来要因項目
+    lifecycle_factors: 3 # 新規要因項目
+    total_factors: 23
+    
+    new_factors:
+      21: "企業年齢（設立からの経過年数）"
+      22: "市場参入時期（先発/後発効果）"
+      23: "親会社依存度（分社企業の場合）"
+
+# データ品質管理
+data_quality:
+  
+  # 生存バイアス対応
+  survivorship_bias:
+    include_extinct_companies: true
+    extinct_company_data_treatment: "full_lifecycle"
+    bias_correction_methods:
+      - "inverse_probability_weighting"
+      - "selection_model_correction"
+      - "heckman_correction"
+  
+  # 欠損値処理
+  missing_data:
+    handling_methods:
+      - "multiple_imputation"
+      - "industry_benchmark_substitution"
+      - "time_series_interpolation"
+      - "parent_company_proxy"
+    
+    missing_threshold: 0.3  # 30%以上欠損の場合は特別処理
+  
+  # データ検証
+  validation:
+    consistency_checks:
+      - "financial_statement_balance"
+      - "inter_temporal_consistency"
+      - "industry_benchmark_comparison"
+      - "corporate_action_alignment"
+    
+    outlier_detection:
+      - "statistical_outlier"      # 統計的外れ値
+      - "business_logic_outlier"   # ビジネスロジック外れ値
+      - "industry_outlier"         # 業界外れ値
+
+# 市場特性分析
+market_characteristics:
+  
+  # 高シェア市場の特徴
+  high_share_success_factors:
+    - "technological_superiority"   # 技術優位性
+    - "manufacturing_excellence"    # 製造優秀性
+    - "quality_reputation"          # 品質評判
+    - "global_niche_dominance"      # グローバルニッチ独占
+    - "continuous_innovation"       # 継続的イノベーション
+  
+  # 失失市場の失敗要因
+  lost_share_failure_factors:
+    - "digital_transformation_lag"  # デジタル変革遅れ
+    - "cost_competitiveness_loss"   # コスト競争力喪失
+    - "standard_setting_failure"    # 標準化戦略失敗
+    - "global_expansion_failure"    # グローバル展開失敗
+    - "ecosystem_participation_lag" # エコシステム参加遅れ
+  
+  # 市場転換点分析
+  market_transition_points:
+    - "technology_paradigm_shift"   # 技術パラダイムシフト
+    - "customer_behavior_change"    # 顧客行動変化
+    - "regulatory_environment_change" # 規制環境変化
+    - "global_supply_chain_change"  # グローバルサプライチェーン変化
+    - "competitive_landscape_change" # 競争環境変化
+
+# 実装優先度
+implementation_priority:
+  phase_1: ["data_collection", "preprocessing", "basic_analysis"]
+  phase_2: ["survival_analysis", "causal_inference", "lifecycle_analysis"]
+  phase_3: ["integrated_modeling", "prediction", "simulation"]
+  phase_4: ["visualization", "reporting", "api_development"]
+  phase_5: ["web_interface", "real_time_monitoring", "continuous_learning"]"
+            company_name: "ソニー（メディカル）"
+            primary_business: "医療ビデオ内視鏡、撮影装置"
+            market_position: "イメージセンサー応用"
+            establishment_year: 1946
+            listing_status: "上場"
+            lifecycle_stage: "多角化・医療参入"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "7732"
+            company_name: "トプコン"
+            primary_business: "医療機器・眼科用内視鏡"
+            market_position: "眼科機器特化"
+            establishment_year: 1932
+            listing_status: "上場"
+            lifecycle_stage: "成熟・専門特化"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "2413"
+            company_name: "エムスリー（M3）"
+            primary_business: "医療ITプラットフォーム（データ解析支援）"
+            market_position: "医療IT最大手"
+            establishment_year: 2000
+            listing_status: "上場"
+            lifecycle_stage: "急成長・新興"
+            data_availability: "2000-2024 (24年)"
+            
+          - company_id: "6501"
+            company_name: "日立製作所（ヘルスケア）"
+            primary_business: "医療検査機器・内視鏡技術"
+            market_position: "総合電機医療部門"
+            establishment_year: 1910
+            listing_status: "上場"
+            lifecycle_stage: "成熟・医療強化"
+            data_availability: "1984-2024 (40年完全)"
+
+      # 3. 工作機械市場
+      machine_tools:
+        market_name: "工作機械市場"
+        market_description: "CNC工作機械・マシニングセンター・放電加工機"
+        global_market_size: "約10兆円（2024年）"
+        japanese_share: "約30-40%"
+        key_technologies: ["5軸CNC", "高精度加工", "複合加工", "自動化"]
+        
+        companies:
+          - company_id: "6141"
+            company_name: "DMG森精機"
+            primary_business: "5軸CNC工作機械"
+            market_position: "世界最大手級"
+            establishment_year: 1948
+            listing_status: "上場"
+            lifecycle_stage: "成熟・グローバル統合"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "6349"
+            company_name: "ヤマザキマザック"
+            primary_business: "高精度マシニングセンター"
+            market_position: "世界大手"
+            establishment_year: 1919
+            listing_status: "非上場"
+            lifecycle_stage: "成熟・ファミリー企業"
+            data_availability: "推定1984-2024 (業界統計補完)"
+            
+          - company_id: "6103"
+            company_name: "オークマ"
+            primary_business: "旋盤・複合加工機"
+            market_position: "NC技術先駆者"
+            establishment_year: 1898
+            listing_status: "上場"
+            lifecycle_stage: "成熟・技術特化"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "6135"
+            company_name: "牧野フライス製作所"
+            primary_business: "超精密放電加工・マシニングセンタ"
+            market_position: "精密加工最大手"
+            establishment_year: 1937
+            listing_status: "上場"
+            lifecycle_stage: "成熟・超精密特化"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "6473"
+            company_name: "ジェイテクト"
+            primary_business: "工作機械・測定機器"
+            market_position: "トヨタ系部品・工作機械"
+            establishment_year: 2006
+            listing_status: "上場"
+            lifecycle_stage: "統合・成長"
+            data_availability: "2006-2024 (統合前光洋精工・豊田工機1984-2006)"
+            predecessor: "光洋精工・豊田工機統合"
+            
+          - company_id: "SHIBAURA"
+            company_name: "東芝機械（芝浦機械）"
+            primary_business: "大型NC旋盤"
+            market_position: "重工作機械"
+            establishment_year: 2020
+            listing_status: "上場"
+            lifecycle_stage: "分社・独立"
+            data_availability: "2020-2024 (分社前東芝1984-2020)"
+            predecessor: "東芝機械部門"
+            
+          - company_id: "6113"
+            company_name: "アマダ"
+            primary_business: "板金加工機"
+            market_position: "板金加工最大手"
+            establishment_year: 1946
+            listing_status: "上場"
+            lifecycle_stage: "成熟・板金特化"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "6143"
+            company_name: "ソディック"
+            primary_business: "ワイヤ放電加工機"
+            market_position: "放電加工専門"
+            establishment_year: 1976
+            listing_status: "上場"
+            lifecycle_stage: "成熟・放電加工特化"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "MITSUBISHI_HEAVY_MT"
+            company_name: "三菱重工工作機械"
+            primary_business: "NC旋盤・工具研削盤"
+            market_position: "重工業系工作機械"
+            establishment_year: 1950
+            listing_status: "非上場（三菱重工子会社）"
+            lifecycle_stage: "成熟・重工系"
+            data_availability: "推定1984-2024 (親会社補完)"
+            parent_company: "7011_三菱重工業"
+            
+          - company_id: "6118"
+            company_name: "シギヤ精機製作所"
+            primary_business: "円筒研削盤"
+            market_position: "研削盤専門"
+            establishment_year: 1935
+            listing_status: "上場"
+            lifecycle_stage: "成熟・研削特化"
+            data_availability: "1984-2024 (40年完全)"
+
+      # 4. 電子材料（高機能部材）
+      electronic_materials:
+        market_name: "電子材料（高機能部材）"
+        market_description: "セラミックコンデンサ・磁性材料・電子部品"
+        global_market_size: "約20兆円（2024年）"
+        japanese_share: "約40-50%"
+        key_technologies: ["MLCC", "磁性材料", "ファインセラミック", "高周波部品"]
+        
+        companies:
+          - company_id: "6981"
+            company_name: "村田製作所"
+            primary_business: "セラミックコンデンサ・高周波部品"
+            market_position: "MLCC世界最大手"
+            establishment_year: 1944
+            listing_status: "上場"
+            lifecycle_stage: "成熟・世界独占級"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "6762"
+            company_name: "TDK"
+            primary_business: "電子材料・磁性材料"
+            market_position: "磁性材料世界最大手"
+            establishment_year: 1935
+            listing_status: "上場"
+            lifecycle_stage: "成熟・磁性材料特化"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "6971"
+            company_name: "京セラ"
+            primary_business: "電子部品、ファインセラミックス"
+            market_position: "セラミック技術最大手"
+            establishment_year: 1959
+            listing_status: "上場"
+            lifecycle_stage: "成熟・多角化成功"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "6976"
+            company_name: "太陽誘電"
+            primary_business: "MLCC、インダクタ"
+            market_position: "受動部品大手"
+            establishment_year: 1950
+            listing_status: "上場"
+            lifecycle_stage: "成熟・受動部品特化"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "5334"
+            company_name: "日本特殊陶業"
+            primary_business: "センサー、酸素センサー"
+            market_position: "自動車センサー最大手"
+            establishment_year: 1936
+            listing_status: "上場"
+            lifecycle_stage: "成熟・センサー特化"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "6963"
+            company_name: "ローム"
+            primary_business: "半導体・電子部品"
+            market_position: "アナログ半導体大手"
+            establishment_year: 1958
+            listing_status: "上場"
+            lifecycle_stage: "成熟・アナログ特化"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "5471"
+            company_name: "プロテリアル"
+            primary_business: "高機能磁性材料・電子部品"
+            market_position: "高機能材料専門"
+            establishment_year: 2023
+            listing_status: "上場"
+            lifecycle_stage: "分社・新設"
+            data_availability: "2023-2024 (分社前日立金属1984-2023)"
+            predecessor: "日立金属"
+            
+          - company_id: "5802"
+            company_name: "住友電工"
+            primary_business: "電子ワイヤ・高機能基材"
+            market_position: "電線・電子材料大手"
+            establishment_year: 1897
+            listing_status: "上場"
+            lifecycle_stage: "成熟・高付加価値転換"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "6988"
+            company_name: "日東電工"
+            primary_business: "半導体材料・液晶用フィルム"
+            market_position: "機能性フィルム最大手"
+            establishment_year: 1918
+            listing_status: "上場"
+            lifecycle_stage: "成熟・高機能化成功"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "5333"
+            company_name: "日本碍子"
+            primary_business: "絶縁材料、セラミック電子部品"
+            market_position: "碍子・セラミック最大手"
+            establishment_year: 1919
+            listing_status: "上場"
+            lifecycle_stage: "成熟・高機能転換"
+            data_availability: "1984-2024 (40年完全)"
+
+      # 5. 精密測定機器
+      precision_instruments:
+        market_name: "精密測定機器"
+        market_description: "センサ・画像計測・分析機器・測定機器"
+        global_market_size: "約5兆円（2024年）"
+        japanese_share: "約60-70%"
+        key_technologies: ["画像計測", "質量分析", "精密測定", "センサー技術"]
+        
+        companies:
+          - company_id: "6861"
+            company_name: "キーエンス"
+            primary_business: "センサ・画像計測システム"
+            market_position: "FA センサー世界最大手"
+            establishment_year: 1974
+            listing_status: "上場"
+            lifecycle_stage: "成長・高収益"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "7701"
+            company_name: "島津製作所"
+            primary_business: "質量分析・X線・分析機器"
+            market_position: "分析機器世界最大手"
+            establishment_year: 1875
+            listing_status: "上場"
+            lifecycle_stage: "老舗・技術革新"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "6856"
+            company_name: "堀場製作所"
+            primary_business: "ガス分析計・バイオ・医用機器"
+            market_position: "分析計測機器大手"
+            establishment_year: 1945
+            listing_status: "上場"
+            lifecycle_stage: "成熟・グローバル展開"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "7729"
+            company_name: "東京精密"
+            primary_business: "表面粗さ・三次元測定機"
+            market_position: "精密測定機器大手"
+            establishment_year: 1949
+            listing_status: "上場"
+            lifecycle_stage: "成熟・精密測定特化"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "7723"
+            company_name: "ミツトヨ"
+            primary_business: "マイクロメータ、ノギス"
+            market_position: "測定工具世界最大手"
+            establishment_year: 1934
+            listing_status: "非上場"
+            lifecycle_stage: "成熟・測定工具独占"
+            data_availability: "推定1984-2024 (業界統計補完)"
+            
+          - company_id: "7733"
+            company_name: "オリンパス"
+            primary_business: "工業用内視鏡、顕微鏡"
+            market_position: "光学機器最大手"
+            establishment_year: 1919
+            listing_status: "上場"
+            lifecycle_stage: "成熟・光学特化"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "6594"
+            company_name: "日本電産（Nidec）"
+            primary_business: "測定器搭載の産業用装置"
+            market_position: "モーター世界最大手"
+            establishment_year: 1973
+            listing_status: "上場"
+            lifecycle_stage: "成長・買収拡大"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "6823"
+            company_name: "リオン"
+            primary_business: "振動計・騒音計・精密音響機器"
+            market_position: "音響測定専門"
+            establishment_year: 1944
+            listing_status: "上場"
+            lifecycle_stage: "成熟・音響測定特化"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "6728"
+            company_name: "アルバック"
+            primary_business: "真空・計測システム"
+            market_position: "真空装置最大手"
+            establishment_year: 1952
+            listing_status: "上場"
+            lifecycle_stage: "成熟・真空技術特化"
+            data_availability: "1984-2024 (40年完全)"
+            
+          - company_id: "6268"
+            company_name: "ナブテスコ"
+            primary_business: "精密制御装置・モーションコントロール"
+            market_position: "制御機器大手"
+            establishment_year: 2003
+            listing_status: "上場"
+            lifecycle_stage: "統合・成長"
+            data_availability: "2003-2024 (統合前帝人製機・ナブコ1984-2003)"
+            predecessor: "帝人製機・ナブコ統合"
+
+  # ⚠️ 現在進行形でシェア低下中のメジャー市場（5市場×10社 = 50社）
+  declining_share_markets:
+    description: "現在進行形で世界シェアが低下している市場"
+    total_companies: 50
+    
+    markets:
+      # 1. 自動車市場（EV含む）
+      automotive:
+        market_name: "自動車市場（EV含む）"
+        market_description: "自動車製造・EV・商用車"
+        global_market_size: "約300兆円（2024年）"
+        japanese_share: "約20-25%（ピーク時40%から低下）"
+        key_challenges: ["EV転換遅れ", "中国メーカー台頭", "ソフトウェア競争力不足"]
+        
+        companies:
+          - company_id: "7203"
+            company_name: "トヨタ自動車"
+            primary_business: "自動車製造"
+            market_position: "世界最大級、EV移行に課題あり"
+            establishment_year: 1937
+            listing_status: "上場"
+            lifecycle_stage: "成熟・EV転換課題"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["EV出遅れ", "中国市場苦戦"]
+            
+          - company_id: "7201"
+            company_name: "日産自動車"
+            primary_business: "自動車製造"
+            market_position: "EVパイオニア、近年競争激化で後退"
+            establishment_year: 1933
+            listing_status: "上場"
+            lifecycle_stage: "成熟・競争力低下"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["リーフ優位失失", "ゴーン事件影響"]
+            
+          - company_id: "7267"
+            company_name: "ホンダ"
+            primary_business: "自動車・二輪車製造"
+            market_position: "EV対応に注力中"
+            establishment_year: 1948
+            listing_status: "上場"
+            lifecycle_stage: "成熟・EV転換中"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["EV投資遅れ", "中国市場競争激化"]
+            
+          - company_id: "7269"
+            company_name: "スズキ"
+            primary_business: "小型車・軽自動車"
+            market_position: "新興国で強いがグローバルEV競争で劣勢"
+            establishment_year: 1920
+            listing_status: "上場"
+            lifecycle_stage: "成熟・EV対応遅れ"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["EV技術遅れ", "インド市場競争激化"]
+            
+          - company_id: "7261"
+            company_name: "マツダ"
+            primary_business: "自動車製造"
+            market_position: "技術力高いが資本規模小"
+            establishment_year: 1920
+            listing_status: "上場"
+            lifecycle_stage: "成熟・規模限界"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["規模限界", "EV投資余力不足"]
+            
+          - company_id: "7270"
+            company_name: "SUBARU"
+            primary_business: "自動車製造"
+            market_position: "独自ブランド力あるがEVに出遅れ"
+            establishment_year: 1953
+            listing_status: "上場"
+            lifecycle_stage: "成熟・EV転換遅れ"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["EV技術不足", "電動化投資遅れ"]
+            
+          - company_id: "7202"
+            company_name: "いすゞ自動車"
+            primary_business: "商用車・トラック"
+            market_position: "商用車強いが国際競争激化"
+            establishment_year: 1937
+            listing_status: "上場"
+            lifecycle_stage: "成熟・商用車特化"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["商用EV遅れ", "中国商用車台頭"]
+            
+          - company_id: "7211"
+            company_name: "三菱自動車"
+            primary_business: "自動車製造"
+            market_position: "東南アジア強いが競合拡大中"
+            establishment_year: 1970
+            listing_status: "上場"
+            lifecycle_stage: "再建・競争力回復中"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["不正問題", "グローバル競争力不足"]
+            
+          - company_id: "7262"
+            company_name: "ダイハツ工業"
+            primary_business: "軽自動車・小型車"
+            market_position: "小型車強いがEV戦略は不透明"
+            establishment_year: 1907
+            listing_status: "非上場（トヨタ傘下）"
+            lifecycle_stage: "成熟・親会社依存"
+            data_availability: "1984-2022 (上場廃止まで)"
+            decline_factors: ["EV戦略不明", "軽EV競争激化"]
+            parent_company: "7203_トヨタ自動車"
+            
+          - company_id: "7205"
+            company_name: "日野自動車"
+            primary_business: "トラック・商用車"
+            market_position: "トラック分野強いが不正問題などで後退"
+            establishment_year: 1942
+            listing_status: "上場"
+            lifecycle_stage: "危機・再建中"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["排ガス不正", "商用EV遅れ"]
+
+      # 2. 鉄鋼市場（汎用品中心）
+      steel:
+        market_name: "鉄鋼市場（汎用品中心）"
+        market_description: "普通鋼・特殊鋼・鉄鋼製品"
+        global_market_size: "約200兆円（2024年）"
+        japanese_share: "約5-10%（ピーク時20%から大幅低下）"
+        key_challenges: ["中国メーカー価格競争", "脱炭素対応コスト", "内需縮小"]
+        
+        companies:
+          - company_id: "5401"
+            company_name: "日本製鉄"
+            primary_business: "鉄鋼製品"
+            market_position: "国内最大手、汎用鋼材の価格競争で中国に押される"
+            establishment_year: 2012
+            listing_status: "上場"
+            lifecycle_stage: "統合・競争力回復努力中"
+            data_availability: "2012-2024 (統合前新日鉄・住金1984-2012)"
+            decline_factors: ["中国価格競争", "内需縮小"]
+            predecessor: "新日本製鐵・住友金属統合"
+            
+          - company_id: "5411"
+            company_name: "JFEホールディングス"
+            primary_business: "鉄鋼製品"
+            market_position: "業界2位、コスト競争激化"
+            establishment_year: 2002
+            listing_status: "上場"
+            lifecycle_stage: "統合・競争激化"
+            data_availability: "2002-2024 (統合前NKK・川鉄1984-2002)"
+            decline_factors: ["中国競合", "高炉効率限界"]
+            predecessor: "NKK・川崎製鉄統合"
+            
+          - company_id: "5406"
+            company_name: "神戸製鋼所"
+            primary_business: "特殊鋼・鉄鋼製品"
+            market_position: "特殊鋼は強いがグローバル競争で劣勢"
+            establishment_year: 1905
+            listing_status: "上場"
+            lifecycle_stage: "成熟・品質問題克服中"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["品質不正問題", "競争力低下"]
+            
+          - company_id: "5413"
+            company_name: "日新製鋼"
+            primary_business: "ステンレス鋼・特殊鋼"
+            market_position: "ステンレス鋼など特化型"
+            establishment_year: 1959
+            listing_status: "非上場（日本製鉄傘下）"
+            lifecycle_stage: "買収・特化戦略"
+            data_availability: "1984-2019 (買収まで)"
+            decline_factors: ["単独経営限界", "規模不足"]
+            parent_company: "5401_日本製鉄"
+            
+          - company_id: "5471"
+            company_name: "大同特殊鋼"
+            primary_business: "工業用特殊鋼"
+            market_position: "工業用特殊鋼に強み"
+            establishment_year: 1916
+            listing_status: "上場"
+            lifecycle_stage: "成熟・特殊鋼特化"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["汎用品競争激化", "原料コスト上昇"]
+            
+          - company_id: "5440"
+            company_name: "山陽特殊製鋼"
+            primary_business: "自動車・航空機向け部材"
+            market_position: "自動車・航空機向け部材"
+            establishment_year: 1935
+            listing_status: "上場"
+            lifecycle_stage: "成熟・用途特化"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["自動車需要変化", "競合激化"]
+            
+          - company_id: "5445"
+            company_name: "愛知製鋼"
+            primary_business: "電磁鋼板・特殊鋼"
+            market_position: "トヨタ系、電磁鋼板等"
+            establishment_year: 1940
+            listing_status: "上場"
+            lifecycle_stage: "成熟・トヨタ系"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["EV化で電磁鋼需要変化", "競争激化"]
+            parent_company: "7203_トヨタ自動車"
+            
+          - company_id: "5423"
+            company_name: "中部鋼鈑"
+            primary_business: "薄板鋼材"
+            market_position: "薄板鋼材中心"
+            establishment_year: 1934
+            listing_status: "上場"
+            lifecycle_stage: "成熟・薄板特化"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["薄板価格競争", "需要縮小"]
+            
+          - company_id: "5451"
+            company_name: "淀川製鋼所"
+            primary_business: "建材・外装材"
+            market_position: "建材・外装材などを展開"
+            establishment_year: 1937
+            listing_status: "上場"
+            lifecycle_stage: "成熟・建材特化"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["建設需要縮小", "競合激化"]
+            
+          - company_id: "5486"
+            company_name: "日立金属（旧）"
+            primary_business: "高機能材料"
+            market_position: "高機能材料に特化、売却・再編進行中"
+            establishment_year: 1956
+            listing_status: "非上場（売却済）"
+            lifecycle_stage: "売却・事業終了"
+            data_availability: "1984-2023 (売却まで)"
+            decline_factors: ["事業ポートフォリオ見直し", "収益性低下"]
+            successor: "5471_プロテリアル"
+
+      # 3. スマート家電市場
+      smart_appliances:
+        market_name: "スマート家電市場"
+        market_description: "白物家電・スマート家電・IoT家電"
+        global_market_size: "約30兆円（2024年）"
+        japanese_share: "約5-15%（ピーク時30%から大幅低下）"
+        key_challenges: ["中韓メーカー価格競争", "IoT対応遅れ", "内需縮小"]
+        
+        companies:
+          - company_id: "6752"
+            company_name: "パナソニック"
+            primary_business: "白物家電・住宅設備"
+            market_position: "白物家電大手、IoT連携に遅れ"
+            establishment_year: 1918
+            listing_status: "上場"
+            lifecycle_stage: "事業転換・B2B強化"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["家電IoT遅れ", "中韓競合"]
+            
+          - company_id: "6753"
+            company_name: "シャープ"
+            primary_business: "家電・液晶"
+            market_position: "鴻海傘下、復活中だが競争激しい"
+            establishment_year: 1912
+            listing_status: "上場"
+            lifecycle_stage: "外資傘下・再建中"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["液晶競争敗北", "経営破綻"]
+            parent_company: "鴻海精密工業"
+            
+          - company_id: "6758"
+            company_name: "ソニー（家電部門）"
+            primary_business: "テレビ・オーディオ"
+            market_position: "テレビ・オーディオ等縮小傾向"
+            establishment_year: 1946
+            listing_status: "上場"
+            lifecycle_stage: "事業転換・エンタメ集中"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["家電事業縮小", "コンテンツ集中"]
+            
+          - company_id: "TOSHIBA_LIFESTYLE"
+            company_name: "東芝ライフスタイル"
+            primary_business: "白物家電"
+            market_position: "美的集団傘下、グローバル戦略課題あり"
+            establishment_year: 2018
+            listing_status: "非上場（美的集団傘下）"
+            lifecycle_stage: "売却・外資傘下"
+            data_availability: "2018-2024 (分社前東芝1984-2018)"
+            decline_factors: ["東芝経営危機", "事業売却"]
+            predecessor: "東芝家電事業部"
+            parent_company: "美的集団"
+            
+          - company_id: "HITACHI_GLS"
+            company_name: "日立グローバルライフソリューションズ"
+            primary_business: "白物家電"
+            market_position: "白物家電、存在感縮小"
+            establishment_year: 2018
+            listing_status: "非上場（日立子会社）"
+            lifecycle_stage: "分社・事業縮小"
+            data_availability: "2018-2024 (分社前日立1984-2018)"
+            decline_factors: ["事業集中", "競争力低下"]
+            predecessor: "日立家電事業部"
+            parent_company: "6501_日立製作所"
+            
+          - company_id: "7833"
+            company_name: "アイリスオーヤマ"
+            primary_business: "生活用品・家電"
+            market_position: "国内強いが世界展開は限定的"
+            establishment_year: 1958
+            listing_status: "非上場"
+            lifecycle_stage: "成長・国内特化"
+            data_availability: "推定1984-2024 (非上場データ推定)"
+            decline_factors: ["グローバル展開限界", "技術力不足"]
+            
+          - company_id: "6503"
+            company_name: "三菱電機"
+            primary_business: "エアコン・家電"
+            market_position: "エアコン等強いがIoT面で苦戦"
+            establishment_year: 1921
+            listing_status: "上場"
+            lifecycle_stage: "成熟・B2B強化"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["IoT対応遅れ", "家電事業縮小"]
+            
+          - company_id: "7965"
+            company_name: "象印マホービン"
+            primary_business: "調理家電"
+            market_position: "高級炊飯器等でニッチ展開"
+            establishment_year: 1918
+            listing_status: "上場"
+            lifecycle_stage: "成熟・ニッチ特化"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["市場規模限界", "海外展開困難"]
+            
+          - company_id: "7966"
+            company_name: "タイガー魔法瓶"
+            primary_business: "調理家電・魔法瓶"
+            market_position: "高級炊飯器等でニッチ展開"
+            establishment_year: 1923
+            listing_status: "上場"
+            lifecycle_stage: "成熟・ニッチ特化"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["市場規模限界", "競合激化"]
+            
+          - company_id: "8051"
+            company_name: "山善"
+            primary_business: "家電OEM・工具"
+            market_position: "家電OEM・工具兼用"
+            establishment_year: 1947
+            listing_status: "上場"
+            lifecycle_stage: "成熟・OEM特化"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["OEM価格競争", "ブランド力不足"]
+
+      # 4. バッテリー市場（EV用）
+      battery:
+        market_name: "バッテリー市場（EV用）"
+        market_description: "リチウムイオン電池・EV用バッテリー"
+        global_market_size: "約15兆円（2024年）"
+        japanese_share: "約15-20%（ピーク時40%から低下）"
+        key_challenges: ["中韓メーカー台頭", "コスト競争", "技術標準化遅れ"]
+        
+        companies:
+          - company_id: "PANASONIC_ENERGY"
+            company_name: "パナソニックエナジー"
+            primary_business: "EV用バッテリー"
+            market_position: "Tesla向け供給で一時拡大、競争激化"
+            establishment_year: 2022
+            listing_status: "非上場（パナソニック子会社）"
+            lifecycle_stage: "分社・競争激化"
+            data_availability: "2022-2024 (分社前パナソニック1984-2022)"
+            decline_factors: ["中韓競合台頭", "Tesla依存リスク"]
+            predecessor: "パナソニック電池事業"
+            parent_company: "6752_パナソニック"
+            
+          - company_id: "6981"
+            company_name: "村田製作所"
+            primary_business: "小型リチウムイオン電池"
+            market_position: "小型リチウムイオン電池で強い"
+            establishment_year: 1944
+            listing_status: "上場"
+            lifecycle_stage: "成熟・小型電池特化"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["EV大型電池参入遅れ", "スマホ需要頭打ち"]
+            
+          - company_id: "6674"
+            company_name: "GSユアサ"
+            primary_business: "車載用・産業用蓄電池"
+            market_position: "車載用・産業用の蓄電池"
+            establishment_year: 2004
+            listing_status: "上場"
+            lifecycle_stage: "統合・競争激化"
+            data_availability: "2004-2024 (統合前日本電池・湯浅電池1984-2004)"
+            decline_factors: ["EV電池競争力不足", "従来電池需要減"]
+            predecessor: "日本電池・湯浅電池統合"
+            
+          - company_id: "TOSHIBA_INFRA"
+            company_name: "東芝インフラシステムズ"
+            primary_business: "SCiBバッテリー"
+            market_position: "SCiBバッテリー等開発"
+            establishment_year: 2017
+            listing_status: "非上場（東芝子会社）"
+            lifecycle_stage: "分社・事業縮小"
+            data_availability: "2017-2024 (分社前東芝1984-2017)"
+            decline_factors: ["東芝経営危機", "電池事業優先度低下"]
+            predecessor: "東芝電池事業部"
+            parent_company: "6502_東芝"
+            
+          - company_id: "RESONAC"
+            company_name: "日立化成（現レゾナック）"
+            primary_business: "車載電池用材料"
+            market_position: "車載電池用材料提供"
+            establishment_year: 2023
+            listing_status: "上場"
+            lifecycle_stage: "統合・材料特化"
+            data_availability: "2023-2024 (統合前日立化成・昭和電工1984-2023)"
+            decline_factors: ["電池材料競争激化", "統合効果未実現"]
+            predecessor: "日立化成・昭和電工統合"
+            
+          - company_id: "6955"
+            company_name: "FDK"
+            primary_business: "電池"
+            market_position: "電池事業は縮小"
+            establishment_year: 1950
+            listing_status: "上場"
+            lifecycle_stage: "事業縮小・転換"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["一次電池需要減", "二次電池競争力不足"]
+            
+          - company_id: "NEC_BATTERY"
+            company_name: "NEC（旧電池事業）"
+            primary_business: "車載電池JV"
+            market_position: "車載電池JVを解消し撤退傾向"
+            establishment_year: 1899
+            listing_status: "上場"
+            lifecycle_stage: "事業撤退・IT集中"
+            data_availability: "1984-2018 (電池事業撤退まで)"
+            decline_factors: ["電池事業不採算", "IT事業集中"]
+            
+          - company_id: "ENAX"
+            company_name: "ENAX"
+            primary_business: "リチウム電池技術"
+            market_position: "リチウム電池技術持つ中小企業"
+            establishment_year: 2004
+            listing_status: "非上場"
+            lifecycle_stage: "中小・技術特化"
+            data_availability: "2004-2024 (設立以降)"
+            decline_factors: ["規模限界", "大手との競争"]
+            
+          - company_id: "6594"
+            company_name: "日本電産"
+            primary_business: "EV用モーター・電源技術"
+            market_position: "モーター主軸だがEV電源技術にも進出"
+            establishment_year: 1973
+            listing_status: "上場"
+            lifecycle_stage: "成長・EV転換"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["電池本体競争力不足", "モーター集中"]
+            
+          - company_id: "6762"
+            company_name: "TDK"
+            primary_business: "電池材料・BMS制御"
+            market_position: "電池材料とBMS制御関連に展開"
+            establishment_year: 1935
+            listing_status: "上場"
+            lifecycle_stage: "成熟・材料特化"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["電池セル競争力不足", "材料供給特化"]
+
+      # 5. PC・周辺機器市場
+      pc_peripherals:
+        market_name: "PC・周辺機器市場"
+        market_description: "パソコン・PC周辺機器・ストレージ"
+        global_market_size: "約50兆円（2024年）"
+        japanese_share: "約5%（ピーク時20%から大幅低下）"
+        key_challenges: ["海外メーカー価格競争", "スマホ普及", "技術標準化遅れ"]
+        
+        companies:
+          - company_id: "NEC_PERSONAL"
+            company_name: "NEC（NECパーソナル）"
+            primary_business: "パソコン"
+            market_position: "Lenovo傘下に入り国内専業に近い"
+            establishment_year: 2011
+            listing_status: "合弁（Lenovo）"
+            lifecycle_stage: "外資合弁・国内特化"
+            data_availability: "2011-2024 (合弁前NEC1984-2011)"
+            decline_factors: ["海外競争力喪失", "Lenovo依存"]
+            predecessor: "NEC PC事業部"
+            
+          - company_id: "FUJITSU_CLIENT"
+            company_name: "富士通クライアントコンピューティング"
+            primary_business: "パソコン"
+            market_position: "Lenovo傘下、国内中心"
+            establishment_year: 2018
+            listing_status: "合弁（Lenovo）"
+            lifecycle_stage: "外資合弁・事業縮小"
+            data_availability: "2018-2024 (合弁前富士通1984-2018)"
+            decline_factors: ["海外競争力喪失", "事業売却"]
+            predecessor: "富士通PC事業部"
+            
+          - company_id: "DYNABOOK"
+            company_name: "東芝（ダイナブック）"
+            primary_business: "ノートパソコン"
+            market_position: "シャープ→鴻海傘下で事業縮小中"
+            establishment_year: 2019
+            listing_status: "非上場（シャープ傘下）"
+            lifecycle_stage: "売却・事業縮小"
+            data_availability: "2019-2024 (売却前東芝1984-2019)"
+            decline_factors: ["東芝経営危機", "PC市場競争敗北"]
+            predecessor: "東芝PC事業部"
+            parent_company: "6753_シャープ"
+            
+          - company_id: "VAIO"
+            company_name: "ソニー（VAIO）"
+            primary_business: "パソコン"
+            market_position: "ブランド継承だが現在は独立・縮小"
+            establishment_year: 2014
+            listing_status: "非上場（独立）"
+            lifecycle_stage: "スピンオフ・事業縮小"
+            data_availability: "2014-2024 (分離前ソニー1984-2014)"
+            decline_factors: ["ソニー事業売却", "市場規模縮小"]
+            predecessor: "ソニーVAIO事業部"
+            
+          - company_id: "6750"
+            company_name: "エレコム"
+            primary_business: "PC周辺機器"
+            market_position: "周辺機器専業で国内強い"
+            establishment_year: 1986
+            listing_status: "上場"
+            lifecycle_stage: "成熟・周辺機器特化"
+            data_availability: "1986-2024 (38年)"
+            decline_factors: ["PC需要減", "スマホ周辺機器競争"]
+            
+          - company_id: "3352"
+            company_name: "バッファロー（メルコ）"
+            primary_business: "ストレージ・ルーター"
+            market_position: "ストレージ・ルーター等で国内有力"
+            establishment_year: 1975
+            listing_status: "上場"
+            lifecycle_stage: "成熟・ネットワーク機器特化"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["ストレージ価格競争", "クラウド移行"]
+            
+          - company_id: "LOGITEC_INA"
+            company_name: "ロジテック（ロジテックINA）"
+            primary_business: "外付けHDD・周辺機器"
+            market_position: "外付けHDDなど"
+            establishment_year: 1982
+            listing_status: "非上場"
+            lifecycle_stage: "中小・周辺機器特化"
+            data_availability: "1984-2024 (40年推定)"
+            decline_factors: ["ストレージ競争激化", "クラウド移行"]
+            
+          - company_id: "PRINCETON"
+            company_name: "プリンストン"
+            primary_business: "ディスプレイ・周辺機器"
+            market_position: "ディスプレイ・周辺機器中堅"
+            establishment_year: 1982
+            listing_status: "非上場"
+            lifecycle_stage: "中小・周辺機器"
+            data_availability: "1984-2024 (40年推定)"
+            decline_factors: ["ディスプレイ価格競争", "海外競合"]
+            
+          - company_id: "9982"
+            company_name: "サンワサプライ"
+            primary_business: "PC周辺機器・AVアクセサリ"
+            market_position: "周辺機器、AVアクセサリ等多数"
+            establishment_year: 1951
+            listing_status: "上場"
+            lifecycle_stage: "成熟・周辺機器特化"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["PC需要減", "価格競争激化"]
+            
+          - company_id: "6916"
+            company_name: "アイ・オー・データ機器"
+            primary_business: "ストレージ・モニタ"
+            market_position: "ストレージ・モニタ中心"
+            establishment_year: 1976
+            listing_status: "上場"
+            lifecycle_stage: "成熟・ストレージ特化"
+            data_availability: "1984-2024 (40年完全)"
+            decline_factors: ["ストレージ価格競争", "モニタ競争激化"]
+
+  # ❌ 完全にシェアを失ったメジャー市場（5市場×10社 = 50社）
+  lost_share_markets:
+    description: "完全に世界シェアを失った、または市場から撤退した市場"
+    total_companies: 50
+    
+    markets:
+      # 1. 家電（テレビ・冷蔵庫・洗濯機など）
+      consumer_electronics:
+        market_name: "家電（テレビ・冷蔵庫・洗濯機など）"
+        market_description: "テレビ・白物家電・AV機器"
+        global_market_size: "約40兆円（2024年）"
+        japanese_share: "約2-5%（ピーク時50%から壊滅的低下）"
+        extinction_factors: ["韓国メーカー台頭", "中国価格競争", "デジタル化対応遅れ"]
+        
+        companies:
+          - company_id: "6758

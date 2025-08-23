@@ -1,0 +1,398 @@
+# A2AI (Advanced Financial Analysis AI) - 企業ライフサイクルステージ定義
+# 150社×40年分の財務分析における企業の全ライフサイクル管理
+
+# ライフサイクル全体構造
+lifecycle_framework:
+  total_stages: 7
+  analysis_period: "1984-2024"
+  total_years: 40
+  company_categories:
+    - high_share_markets    # 世界シェア高市場
+    - declining_markets     # シェア低下市場  
+    - lost_markets         # シェア失失市場
+
+# 企業ライフサイクルステージ詳細定義
+stages:
+  # ステージ1: 企業新設・創業期
+  emergence:
+    stage_id: 1
+    stage_name: "企業新設・創業期"
+    english_name: "Emergence Stage"
+    description: "企業設立から事業基盤確立までの初期段階"
+    
+    duration:
+      typical_years: "0-5年"
+      minimum_years: 1
+      maximum_years: 10
+    
+    key_characteristics:
+      financial:
+        - "売上高成長率が高い（年率30%以上）"
+        - "営業利益率が不安定（-50%〜30%）"
+        - "設備投資比率が高い（売上高比10%以上）"
+        - "研究開発費率が高い（売上高比5%以上）"
+      
+      operational:
+        - "従業員数増加率が高い（年率20%以上）"
+        - "新規事業セグメント立ち上げ"
+        - "市場参入戦略の実行"
+        - "コア技術・製品の確立"
+      
+      market_position:
+        - "市場シェア獲得段階（通常5%未満）"
+        - "ニッチ市場での地位確立"
+        - "技術的差別化の追求"
+    
+    survival_risks:
+      - "資金調達失敗"
+      - "市場受入れ不足"
+      - "技術開発遅延"
+      - "競合他社の参入"
+    
+    success_indicators:
+      - "継続的売上成長"
+      - "正の営業キャッシュフロー達成"
+      - "市場認知度向上"
+      - "特許・技術資産蓄積"
+
+  # ステージ2: 成長期
+  growth:
+    stage_id: 2
+    stage_name: "成長期"
+    english_name: "Growth Stage"
+    description: "事業拡大と市場シェア獲得の急成長段階"
+    
+    duration:
+      typical_years: "3-15年"
+      minimum_years: 2
+      maximum_years: 20
+    
+    key_characteristics:
+      financial:
+        - "売上高成長率安定（年率10-30%）"
+        - "営業利益率改善傾向（5-15%）"
+        - "ROE向上（10%以上）"
+        - "総資産回転率上昇"
+      
+      operational:
+        - "事業規模拡大"
+        - "生産能力増強"
+        - "販売チャネル拡張"
+        - "人材採用活発化"
+      
+      market_position:
+        - "市場シェア拡大（5-20%）"
+        - "ブランド認知度向上"
+        - "競争優位性確立"
+    
+    growth_strategies:
+      - "有機的成長（内部投資）"
+      - "M&A活用成長"
+      - "海外展開"
+      - "新製品・サービス開発"
+    
+    key_metrics:
+      - "売上高CAGR > 15%"
+      - "営業利益率 > 8%"
+      - "ROE > 12%"
+      - "従業員数増加率 > 10%"
+
+  # ステージ3: 拡張期
+  expansion:
+    stage_id: 3
+    stage_name: "拡張期"
+    english_name: "Expansion Stage"
+    description: "市場リーダーシップ確立と事業多角化段階"
+    
+    duration:
+      typical_years: "10-25年"
+      minimum_years: 5
+      maximum_years: 30
+    
+    key_characteristics:
+      financial:
+        - "売上高成長率中程度（年率5-15%）"
+        - "営業利益率安定（10-20%）"
+        - "ROE高水準維持（15%以上）"
+        - "配当性向上昇（30%以上）"
+      
+      operational:
+        - "事業多角化推進"
+        - "グローバル展開加速"
+        - "M&A活発化"
+        - "イノベーション創出"
+      
+      market_position:
+        - "市場リーダー地位（20%以上シェア）"
+        - "業界標準設定者"
+        - "エコシステム構築"
+    
+    expansion_metrics:
+      - "海外売上高比率 > 30%"
+      - "事業セグメント数 ≥ 3"
+      - "市場シェア > 15%"
+      - "総資産利益率 > 8%"
+
+  # ステージ4: 成熟期
+  maturity:
+    stage_id: 4
+    stage_name: "成熟期"
+    english_name: "Maturity Stage"
+    description: "市場地位確立後の安定成長・効率化段階"
+    
+    duration:
+      typical_years: "15-30年"
+      minimum_years: 10
+      maximum_years: 40
+    
+    key_characteristics:
+      financial:
+        - "売上高成長率低下（年率0-8%）"
+        - "営業利益率高位安定（15%以上）"
+        - "ROE安定（12-18%）"
+        - "高配当性向（50%以上）"
+      
+      operational:
+        - "効率化・合理化推進"
+        - "コスト管理重視"
+        - "プロセス最適化"
+        - "人材活用効率化"
+      
+      market_position:
+        - "市場支配的地位確立"
+        - "高い参入障壁構築"
+        - "顧客ロイヤルティ確立"
+    
+    maturity_indicators:
+      - "売上高付加価値率 > 35%"
+      - "労働生産性業界最高水準"
+      - "総還元性向 > 60%"
+      - "市場シェア安定維持"
+
+  # ステージ5: 再生・変革期
+  transformation:
+    stage_id: 5
+    stage_name: "再生・変革期"
+    english_name: "Transformation Stage"
+    description: "事業モデル変革による企業若返りまたは衰退回避段階"
+    
+    duration:
+      typical_years: "3-10年"
+      minimum_years: 2
+      maximum_years: 15
+    
+    key_characteristics:
+      financial:
+        - "売上高成長率変動大（-10%〜+20%）"
+        - "営業利益率不安定（-5%〜15%）"
+        - "ROE変動（-10%〜+25%）"
+        - "特別損失計上頻発"
+      
+      operational:
+        - "事業再編・リストラ"
+        - "新規事業投資"
+        - "デジタル変革（DX）"
+        - "組織改革実行"
+      
+      strategic_actions:
+        - "事業ポートフォリオ見直し"
+        - "不採算事業撤退"
+        - "新技術投資"
+        - "戦略的提携・M&A"
+    
+    transformation_success_factors:
+      - "研究開発費率増加"
+      - "新規事業売上比率向上"
+      - "デジタル化投資増加"
+      - "組織能力再構築"
+
+  # ステージ6: 衰退・撤退期
+  decline:
+    stage_id: 6
+    stage_name: "衰退・撤退期"
+    english_name: "Decline Stage"
+    description: "市場競争力低下により事業縮小する段階"
+    
+    duration:
+      typical_years: "3-15年"
+      minimum_years: 1
+      maximum_years: 25
+    
+    key_characteristics:
+      financial:
+        - "売上高継続減少（年率-5%以下）"
+        - "営業利益率悪化（5%未満）"
+        - "ROE低下（5%未満）"
+        - "有利子負債比率上昇"
+      
+      operational:
+        - "市場シェア継続低下"
+        - "従業員数削減"
+        - "設備投資抑制"
+        - "R&D費用削減"
+      
+      market_position:
+        - "競争優位性喪失"
+        - "顧客離れ"
+        - "技術的後進性"
+    
+    decline_indicators:
+      - "3年連続売上減少"
+      - "営業利益率業界最低水準"
+      - "市場シェア継続低下"
+      - "従業員数減少率 > 5%/年"
+
+  # ステージ7: 企業消滅・事業終了
+  extinction:
+    stage_id: 7
+    stage_name: "企業消滅・事業終了"
+    english_name: "Extinction Stage"
+    description: "倒産、買収、事業撤退による企業消滅段階"
+    
+    duration:
+      typical_years: "1-3年"
+      minimum_years: 0.5
+      maximum_years: 5
+    
+    extinction_types:
+      bankruptcy:
+        type_name: "倒産・破綻"
+        description: "法的整理による事業終了"
+        indicators:
+          - "債務超過継続"
+          - "流動比率50%未満"
+          - "営業キャッシュフロー赤字継続"
+      
+      acquisition:
+        type_name: "買収・吸収合併"
+        description: "他社による企業買収・統合"
+        indicators:
+          - "TOB（株式公開買付け）対象"
+          - "経営統合発表"
+          - "株式上場廃止"
+      
+      business_withdrawal:
+        type_name: "事業撤退"
+        description: "当該事業からの完全撤退"
+        indicators:
+          - "事業売却発表"
+          - "工場・施設閉鎖"
+          - "従業員解雇・配置転換"
+    
+    final_metrics:
+      - "最終年度売上高"
+      - "最終年度純損失"
+      - "消滅時総資産"
+      - "消滅時従業員数"
+
+# ステージ遷移パターン定義
+transition_patterns:
+  # 成功パターン
+  successful_patterns:
+    - name: "スタートアップ成功パターン"
+      sequence: ["emergence", "growth", "expansion", "maturity"]
+      probability: 0.15
+      
+    - name: "継続成長パターン"
+      sequence: ["growth", "expansion", "maturity"]
+      probability: 0.35
+      
+    - name: "変革成功パターン"
+      sequence: ["maturity", "transformation", "growth", "expansion"]
+      probability: 0.08
+
+  # 失敗・衰退パターン
+  failure_patterns:
+    - name: "早期失敗パターン"
+      sequence: ["emergence", "extinction"]
+      probability: 0.25
+      
+    - name: "成長期失敗パターン"
+      sequence: ["emergence", "growth", "decline", "extinction"]
+      probability: 0.18
+      
+    - name: "成熟期衰退パターン"
+      sequence: ["growth", "expansion", "maturity", "decline", "extinction"]
+      probability: 0.12
+
+# 市場カテゴリー別ライフサイクル特性
+market_category_characteristics:
+  high_share_markets:
+    name: "世界シェア高市場"
+    dominant_stages: ["expansion", "maturity", "transformation"]
+    average_lifecycle_years: 35
+    survival_rate: 0.85
+    transformation_success_rate: 0.70
+    
+  declining_markets:
+    name: "シェア低下市場"
+    dominant_stages: ["maturity", "transformation", "decline"]
+    average_lifecycle_years: 28
+    survival_rate: 0.65
+    transformation_success_rate: 0.45
+    
+  lost_markets:
+    name: "シェア失失市場"
+    dominant_stages: ["decline", "extinction", "transformation"]
+    average_lifecycle_years: 22
+    survival_rate: 0.40
+    transformation_success_rate: 0.25
+
+# ライフサイクル分析パラメータ
+analysis_parameters:
+  stage_identification:
+    # ステージ判定に使用する主要指標
+    primary_indicators:
+      - "売上高成長率"
+      - "営業利益率"
+      - "ROE"
+      - "市場シェア"
+      - "従業員数変化率"
+      
+    # ステージ遷移判定基準
+    transition_criteria:
+      minimum_observation_period: 2  # 年
+      trend_confirmation_period: 3   # 年
+      statistical_significance: 0.05
+      
+  # 生存分析パラメータ
+  survival_analysis:
+    censoring_handling: true
+    time_unit: "years"
+    risk_factors:
+      - "財務指標悪化"
+      - "市場シェア低下"
+      - "技術革新遅れ"
+      - "経営戦略失敗"
+      
+  # 新設企業成功予測
+  emergence_prediction:
+    success_definition:
+      survival_years: 10
+      market_share_threshold: 0.05
+      profitability_threshold: 0.08  # 営業利益率
+      
+    prediction_horizon: 5  # 年後の成功確率予測
+
+# データ品質管理
+data_quality:
+  stage_classification_accuracy: 0.90
+  missing_data_threshold: 0.15
+  outlier_detection_method: "statistical"
+  temporal_consistency_check: true
+  
+# 可視化設定
+visualization:
+  lifecycle_colors:
+    emergence: "#2E8B57"      # SeaGreen - 新緑
+    growth: "#32CD32"         # LimeGreen - 成長
+    expansion: "#FFD700"      # Gold - 拡張
+    maturity: "#FF8C00"       # DarkOrange - 成熟
+    transformation: "#9370DB" # MediumPurple - 変革
+    decline: "#DC143C"        # Crimson - 衰退
+    extinction: "#000000"     # Black - 消滅
+    
+  timeline_visualization:
+    default_span: 40  # 年
+    granularity: "yearly"
+    animation_speed: "medium"

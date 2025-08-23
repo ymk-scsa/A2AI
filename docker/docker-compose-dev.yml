@@ -1,0 +1,414 @@
+version: '3.8'
+
+services:
+  # Development PostgreSQL Database
+  database_dev:
+    image: postgres:15-alpine
+    container_name: a2ai_database_dev
+    environment:
+      POSTGRES_DB: a2ai_financial_db_dev
+      POSTGRES_USER: a2ai_dev_user
+      POSTGRES_PASSWORD: a2ai_dev_password
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+      - ../data/sql_dumps:/sql_dumps  # For importing sample data
+    ports:
+      - "5433:5432"  # Different port to avoid conflicts
+    restart: unless-stopped
+    networks:
+      - a2ai_dev_network
+    command: postgres -c log_statement=all -c log_destination=stderr
+
+  # Development Redis
+  redis_dev:
+    image: redis:7-alpine
+    container_name: a2ai_redis_dev
+    command: redis-server --appendonly yes --requirepass a2ai_dev_redis_password
+    volumes:
+      - redis_dev_data:/data
+    ports:
+      - "6380:6379"  # Different port to avoid conflicts
+    restart: unless-stopped
+    networks:
+      - a2ai_dev_network
+
+  # Development A2AI Application with hot reload
+  a2ai_app_dev:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.dev
+      args:
+        INSTALL_DEV_DEPS: "true"
+    container_name: a2ai_main_app_dev
+    environment:
+      # Development Database Configuration
+      DATABASE_URL: postgresql://a2ai_dev_user:a2ai_dev_password@database_dev:5432/a2ai_financial_db_dev
+      
+      # Development Redis Configuration
+      REDIS_URL: redis://:a2ai_dev_redis_password@redis_dev:6379/0
+      
+      # Development API Configuration
+      API_HOST: 0.0.0.0
+      API_PORT: 8000
+      API_WORKERS: 1  # Single worker for debugging
+      RELOAD: "true"  # Enable auto-reload
+      DEBUG: "true"
+      
+      # Development EDINET API Configuration (Sandbox)
+      EDINET_API_KEY: ${EDINET_DEV_API_KEY:-sandbox_key}
+      EDINET_BASE_URL: https://disclosure.edinet-fsa.go.jp/api/v2
+      EDINET_SANDBOX_MODE: "true"
+      
+      # Development Machine Learning Configuration
+      ML_MODEL_PATH: /app/results/models
+      USE_SAMPLE_DATA: "true"
+      ENABLE_MODEL_CACHING: "false"  # Disable caching for development
+      
+      # Development Logging Configuration
+      LOG_LEVEL: DEBUG
+      LOG_FORMAT: pretty  # Human-readable format for development
+      ENABLE_SQL_LOGGING: "true"
+      
+      # Development Security Configuration (Less secure for dev)
+      SECRET_KEY: dev_secret_key_not_for_production
+      JWT_SECRET_KEY: dev_jwt_secret_not_for_production
+      JWT_EXPIRATION_HOURS: 24
+      
+      # Development Data Collection Configuration
+      DATA_COLLECTION_BATCH_SIZE: 10  # Smaller batches for testing
+      MAX_RETRY_ATTEMPTS: 2
+      REQUEST_DELAY_SECONDS: 0.5  # Faster for development
+      USE_MOCK_DATA: "true"  # Use mock data when API limits reached
+      
+      # Development Analysis Configuration
+      SURVIVAL_ANALYSIS_ENABLED: "true"
+      EMERGENCE_ANALYSIS_ENABLED: "true"
+      CAUSAL_INFERENCE_ENABLED: "true"
+      ENABLE_PROFILING: "true"  # Performance profiling
+      
+      # Development Notification Configuration
+      NOTIFICATION_EMAIL: dev@a2ai.local
+      SMTP_SERVER: mailhog
+      SMTP_PORT: 1025
+      SMTP_USERNAME: ""
+      SMTP_PASSWORD: ""
+      
+      # Development Feature Flags
+      ENABLE_EXPERIMENTAL_FEATURES: "true"
+      ENABLE_MOCK_PREDICTIONS: "true"
+      SKIP_DATA_VALIDATION: "false"  # Keep validation even in dev
+    volumes:
+      - ../src:/app/src  # Mount source code for hot reload
+      - ../data:/app/data
+      - ../results:/app/results
+      - ../logs:/app/logs
+      - ../config:/app/config
+      - ../tests:/app/tests
+      - ../notebooks:/app/notebooks
+    ports:
+      - "8001:8000"  # Different port to avoid conflicts
+    depends_on:
+      - database_dev
+      - redis_dev
+    restart: unless-stopped
+    networks:
+      - a2ai_dev_network
+    stdin_open: true  # Enable interactive debugging
+    tty: true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 60s  # Less frequent checks in dev
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # Development Jupyter with extended packages
+  jupyter_dev:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.jupyter.dev
+    container_name: a2ai_jupyter_dev
+    environment:
+      JUPYTER_ENABLE_LAB: "yes"
+      JUPYTER_TOKEN: dev_jupyter_token
+      DATABASE_URL: postgresql://a2ai_dev_user:a2ai_dev_password@database_dev:5432/a2ai_financial_db_dev
+      REDIS_URL: redis://:a2ai_dev_redis_password@redis_dev:6379/0
+      PYTHONPATH: /home/jovyan/src
+      JUPYTER_LAB_ENABLE_EXTENSIONS: "true"
+    volumes:
+      - ../notebooks:/home/jovyan/notebooks
+      - ../data:/home/jovyan/data
+      - ../results:/home/jovyan/results
+      - ../src:/home/jovyan/src
+      - ../tests:/home/jovyan/tests
+      - ../config:/home/jovyan/config
+    ports:
+      - "8889:8888"  # Different port to avoid conflicts
+    depends_on:
+      - database_dev
+      - redis_dev
+    restart: unless-stopped
+    networks:
+      - a2ai_dev_network
+
+  # Test Data Generator
+  test_data_generator:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.dev
+    container_name: a2ai_test_data_generator
+    command: python scripts/generate_test_data.py
+    environment:
+      DATABASE_URL: postgresql://a2ai_dev_user:a2ai_dev_password@database_dev:5432/a2ai_financial_db_dev
+      REDIS_URL: redis://:a2ai_dev_redis_password@redis_dev:6379/0
+      GENERATE_SAMPLE_COMPANIES: 30  # Subset for development
+      GENERATE_SAMPLE_YEARS: 10     # Shorter time range
+      INCLUDE_EXTINCTION_EVENTS: "true"
+      INCLUDE_EMERGENCE_EVENTS: "true"
+    volumes:
+      - ../data:/app/data
+      - ../logs:/app/logs
+      - ../config:/app/config
+      - ../src:/app/src
+    depends_on:
+      - database_dev
+      - redis_dev
+    restart: "no"
+    networks:
+      - a2ai_dev_network
+
+  # Development Web Interface with hot reload
+  web_interface_dev:
+    build:
+      context: ../web_interface
+      dockerfile: Dockerfile.dev
+    container_name: a2ai_web_interface_dev
+    environment:
+      REACT_APP_API_BASE_URL: http://localhost:8001
+      REACT_APP_JUPYTER_URL: http://localhost:8889
+      REACT_APP_ENVIRONMENT: development
+      FAST_REFRESH: "true"
+      GENERATE_SOURCEMAP: "true"
+    volumes:
+      - ../web_interface/src:/app/src
+      - ../web_interface/public:/app/public
+      - /app/node_modules  # Anonymous volume for node_modules
+    ports:
+      - "3001:3000"  # Different port to avoid conflicts
+    depends_on:
+      - a2ai_app_dev
+    restart: unless-stopped
+    networks:
+      - a2ai_dev_network
+    stdin_open: true
+
+  # Mail server for development (MailHog)
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: a2ai_mailhog_dev
+    ports:
+      - "1025:1025"  # SMTP port
+      - "8025:8025"  # Web UI port
+    restart: unless-stopped
+    networks:
+      - a2ai_dev_network
+
+  # Development Database Admin (pgAdmin)
+  pgadmin_dev:
+    image: dpage/pgadmin4:latest
+    container_name: a2ai_pgadmin_dev
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@a2ai.local
+      PGADMIN_DEFAULT_PASSWORD: admin_dev_password
+      PGADMIN_LISTEN_PORT: 80
+    volumes:
+      - pgadmin_dev_data:/var/lib/pgadmin
+      - ./pgadmin/servers.json:/pgadmin4/servers.json
+    ports:
+      - "5050:80"
+    depends_on:
+      - database_dev
+    restart: unless-stopped
+    networks:
+      - a2ai_dev_network
+
+  # Redis Commander for Redis management
+  redis_commander_dev:
+    image: rediscommander/redis-commander:latest
+    container_name: a2ai_redis_commander_dev
+    environment:
+      REDIS_HOSTS: local:redis_dev:6379:0:a2ai_dev_redis_password
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis_dev
+    restart: unless-stopped
+    networks:
+      - a2ai_dev_network
+
+  # Development Model Trainer with debugging
+  model_trainer_dev:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.dev
+    container_name: a2ai_model_trainer_dev
+    command: python scripts/train_development_models.py
+    environment:
+      DATABASE_URL: postgresql://a2ai_dev_user:a2ai_dev_password@database_dev:5432/a2ai_financial_db_dev
+      REDIS_URL: redis://:a2ai_dev_redis_password@redis_dev:6379/0
+      MODEL_TRAINING_MODE: development
+      ENABLE_GPU: "false"  # CPU-only for development
+      TRAINING_SAMPLE_SIZE: 1000  # Smaller sample for faster training
+      ENABLE_MODEL_DEBUGGING: "true"
+      SAVE_INTERMEDIATE_RESULTS: "true"
+    volumes:
+      - ../data:/app/data
+      - ../results:/app/results
+      - ../logs:/app/logs
+      - ../config:/app/config
+      - ../src:/app/src
+    depends_on:
+      - database_dev
+      - redis_dev
+    restart: "no"
+    networks:
+      - a2ai_dev_network
+
+  # Development Testing Suite
+  test_runner:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.dev
+    container_name: a2ai_test_runner
+    command: python -m pytest tests/ -v --cov=src --cov-report=html
+    environment:
+      DATABASE_URL: postgresql://a2ai_dev_user:a2ai_dev_password@database_dev:5432/a2ai_financial_db_dev
+      REDIS_URL: redis://:a2ai_dev_redis_password@redis_dev:6379/0
+      PYTEST_CURRENT_TEST: "true"
+      TEST_MODE: "true"
+    volumes:
+      - ../src:/app/src
+      - ../tests:/app/tests
+      - ../data:/app/data
+      - ../results:/app/results
+      - ../logs:/app/logs
+      - ../config:/app/config
+      - test_coverage:/app/htmlcov
+    depends_on:
+      - database_dev
+      - redis_dev
+    restart: "no"
+    networks:
+      - a2ai_dev_network
+
+  # Code Quality Checker
+  code_quality:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.dev
+    container_name: a2ai_code_quality
+    command: >
+      sh -c "
+        echo 'Running code quality checks...' &&
+        black --check src/ tests/ &&
+        isort --check-only src/ tests/ &&
+        flake8 src/ tests/ &&
+        mypy src/ &&
+        bandit -r src/ &&
+        echo 'All code quality checks passed!'
+      "
+    volumes:
+      - ../src:/app/src
+      - ../tests:/app/tests
+      - ../pyproject.toml:/app/pyproject.toml
+      - ../setup.cfg:/app/setup.cfg
+    restart: "no"
+    networks:
+      - a2ai_dev_network
+
+  # Development API Documentation
+  api_docs:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.dev
+    container_name: a2ai_api_docs_dev
+    command: python scripts/generate_api_docs.py
+    environment:
+      API_BASE_URL: http://a2ai_app_dev:8000
+      DOCS_OUTPUT_PATH: /app/docs/api
+    volumes:
+      - ../docs:/app/docs
+      - ../src:/app/src
+    ports:
+      - "8080:8000"
+    depends_on:
+      - a2ai_app_dev
+    restart: "no"
+    networks:
+      - a2ai_dev_network
+
+  # Development Log Viewer
+  log_viewer:
+    image: amir20/dozzle:latest
+    container_name: a2ai_log_viewer_dev
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - "9999:8080"
+    restart: unless-stopped
+    networks:
+      - a2ai_dev_network
+
+  # File Watcher for automatic code reloading
+  file_watcher:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.dev
+    container_name: a2ai_file_watcher
+    command: >
+      sh -c "
+        echo 'Starting file watcher...' &&
+        watchmedo auto-restart \
+          --directory=/app/src \
+          --pattern='*.py' \
+          --recursive \
+          -- python scripts/development_server.py
+      "
+    volumes:
+      - ../src:/app/src
+      - ../logs:/app/logs
+    restart: unless-stopped
+    networks:
+      - a2ai_dev_network
+
+volumes:
+  postgres_dev_data:
+    driver: local
+  redis_dev_data:
+    driver: local
+  pgadmin_dev_data:
+    driver: local
+  test_coverage:
+    driver: local
+
+networks:
+  a2ai_dev_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.0.0/16
+
+# Development-specific overrides and extensions
+x-development-common: &development-common
+  restart: unless-stopped
+  networks:
+    - a2ai_dev_network
+
+# Health check template for development services
+x-health-check-dev: &health-check-dev
+  interval: 60s
+  timeout: 10s
+  retries: 3
+  start_period: 30s

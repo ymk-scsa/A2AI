@@ -1,0 +1,1248 @@
+# A2AI (Advanced Financial Analysis AI) Evaluation Factors Configuration
+# 9つの評価項目とそれぞれに対応する23の拡張要因項目定義
+
+evaluation_metrics:
+  # 1. 売上高 (Revenue)
+  revenue:
+    name: "売上高"
+    description: "企業の基本的な事業規模を示す指標"
+    unit: "百万円"
+    category: "traditional"
+    factors:
+      # 投資・資産関連 (5項目)
+      tangible_fixed_assets:
+        name: "有形固定資産（期末残高）"
+        description: "設備・機械等の物理的資産"
+        data_source: "貸借対照表"
+        unit: "百万円"
+      capital_investment:
+        name: "設備投資額"
+        description: "年間設備投資額"
+        data_source: "キャッシュフロー計算書"
+        unit: "百万円"
+      rd_expenses:
+        name: "研究開発費"
+        description: "年間研究開発投資額"
+        data_source: "損益計算書"
+        unit: "百万円"
+      intangible_assets:
+        name: "無形固定資産（期末残高）"
+        description: "特許・ソフトウェア等の無形資産"
+        data_source: "貸借対照表"
+        unit: "百万円"
+      investment_securities:
+        name: "投資有価証券（期末残高）"
+        description: "他社への投資・出資"
+        data_source: "貸借対照表"
+        unit: "百万円"
+      
+      # 人的資源関連 (4項目)
+      employee_count:
+        name: "従業員数"
+        description: "期末従業員数"
+        data_source: "注記情報"
+        unit: "人"
+      average_salary:
+        name: "平均年間給与"
+        description: "従業員一人当たり平均年収"
+        data_source: "注記情報"
+        unit: "千円"
+      retirement_benefit_cost:
+        name: "退職給付費用"
+        description: "年間退職給付引当金繰入額"
+        data_source: "損益計算書"
+        unit: "百万円"
+      welfare_expenses:
+        name: "福利厚生費"
+        description: "従業員福利厚生関連費用"
+        data_source: "販管費明細"
+        unit: "百万円"
+      
+      # 運転資本・効率性関連 (5項目)
+      accounts_receivable:
+        name: "売上債権（期末残高）"
+        description: "売掛金・受取手形の合計"
+        data_source: "貸借対照表"
+        unit: "百万円"
+      inventory:
+        name: "棚卸資産（期末残高）"
+        description: "在庫・仕掛品の合計"
+        data_source: "貸借対照表"
+        unit: "百万円"
+      total_assets:
+        name: "総資産（期末残高）"
+        description: "総資産額"
+        data_source: "貸借対照表"
+        unit: "百万円"
+      receivables_turnover:
+        name: "売上債権回転率"
+        description: "売上高/平均売上債権"
+        calculation: "derived"
+        unit: "回"
+      inventory_turnover:
+        name: "棚卸資産回転率"
+        description: "売上原価/平均棚卸資産"
+        calculation: "derived"
+        unit: "回"
+      
+      # 事業展開関連 (6項目)
+      overseas_sales_ratio:
+        name: "海外売上高比率"
+        description: "海外売上高/総売上高"
+        data_source: "セグメント情報"
+        unit: "％"
+      business_segments:
+        name: "事業セグメント数"
+        description: "報告対象事業セグメント数"
+        data_source: "セグメント情報"
+        unit: "個"
+      sga_expenses:
+        name: "販売費及び一般管理費"
+        description: "年間販管費総額"
+        data_source: "損益計算書"
+        unit: "百万円"
+      advertising_expenses:
+        name: "広告宣伝費"
+        description: "年間広告宣伝費"
+        data_source: "販管費明細"
+        unit: "百万円"
+      non_operating_income:
+        name: "営業外収益"
+        description: "営業外収益合計"
+        data_source: "損益計算書"
+        unit: "百万円"
+      order_backlog:
+        name: "受注残高"
+        description: "期末受注残高"
+        data_source: "注記情報"
+        unit: "百万円"
+      
+      # A2AI拡張項目 (3項目)
+      company_age:
+        name: "企業年齢"
+        description: "設立からの経過年数"
+        calculation: "current_year - establishment_year"
+        unit: "年"
+      market_entry_timing:
+        name: "市場参入時期"
+        description: "当該市場への参入時期（先発=1, 後発=0）"
+        calculation: "categorical"
+        unit: "フラグ"
+      parent_dependency_ratio:
+        name: "親会社依存度"
+        description: "親会社からの売上高比率（分社企業の場合）"
+        data_source: "関連当事者取引"
+        unit: "％"
+
+  # 2. 売上高成長率 (Revenue Growth Rate)
+  revenue_growth_rate:
+    name: "売上高成長率"
+    description: "前年同期比売上高成長率"
+    unit: "％"
+    category: "traditional"
+    calculation: "(当期売上高 - 前期売上高) / 前期売上高 * 100"
+    factors:
+      # 投資・拡張関連 (6項目)
+      capex_growth_rate:
+        name: "設備投資増加率"
+        description: "前年比設備投資増加率"
+        calculation: "year_over_year"
+        unit: "％"
+      rd_growth_rate:
+        name: "研究開発費増加率"
+        description: "前年比研究開発費増加率"
+        calculation: "year_over_year"
+        unit: "％"
+      tangible_assets_growth:
+        name: "有形固定資産増加率"
+        description: "前年比有形固定資産増加率"
+        calculation: "year_over_year"
+        unit: "％"
+      intangible_assets_growth:
+        name: "無形固定資産増加率"
+        description: "前年比無形固定資産増加率"
+        calculation: "year_over_year"
+        unit: "％"
+      total_assets_growth:
+        name: "総資産増加率"
+        description: "前年比総資産増加率"
+        calculation: "year_over_year"
+        unit: "％"
+      goodwill_growth:
+        name: "のれん増加率・減損"
+        description: "のれんの増減及び減損処理"
+        data_source: "貸借対照表・損益計算書"
+        unit: "百万円"
+      
+      # 人的資源拡張 (4項目)
+      employee_growth_rate:
+        name: "従業員数増加率"
+        description: "前年比従業員数増加率"
+        calculation: "year_over_year"
+        unit: "％"
+      salary_growth_rate:
+        name: "平均年間給与増加率"
+        description: "前年比平均給与増加率"
+        calculation: "year_over_year"
+        unit: "％"
+      personnel_cost_growth:
+        name: "人件費増加率"
+        description: "前年比人件費増加率"
+        calculation: "year_over_year"
+        unit: "％"
+      retirement_cost_growth:
+        name: "退職給付費用増加率"
+        description: "前年比退職給付費用増加率"
+        calculation: "year_over_year"
+        unit: "％"
+      
+      # 市場・事業拡大 (5項目)
+      overseas_ratio_change:
+        name: "海外売上高比率変化"
+        description: "前年からの海外売上高比率変化"
+        calculation: "difference"
+        unit: "ポイント"
+      segment_sales_growth:
+        name: "セグメント別売上高増加率"
+        description: "主要セグメント売上高成長率"
+        data_source: "セグメント情報"
+        unit: "％"
+      sga_growth_rate:
+        name: "販売費及び一般管理費増加率"
+        description: "前年比販管費増加率"
+        calculation: "year_over_year"
+        unit: "％"
+      advertising_growth_rate:
+        name: "広告宣伝費増加率"
+        description: "前年比広告宣伝費増加率"
+        calculation: "year_over_year"
+        unit: "％"
+      non_operating_income_growth:
+        name: "営業外収益増加率"
+        description: "前年比営業外収益増加率"
+        calculation: "year_over_year"
+        unit: "％"
+      
+      # 効率性・能力関連 (5項目)
+      receivables_growth_rate:
+        name: "売上債権増加率"
+        description: "前年比売上債権増加率"
+        calculation: "year_over_year"
+        unit: "％"
+      inventory_growth_rate:
+        name: "棚卸資産増加率"
+        description: "前年比棚卸資産増加率"
+        calculation: "year_over_year"
+        unit: "％"
+      receivables_turnover_change:
+        name: "売上債権回転率変化"
+        description: "前年からの売上債権回転率変化"
+        calculation: "difference"
+        unit: "回"
+      inventory_turnover_change:
+        name: "棚卸資産回転率変化"
+        description: "前年からの棚卸資産回転率変化"
+        calculation: "difference"
+        unit: "回"
+      total_asset_turnover_change:
+        name: "総資産回転率変化"
+        description: "前年からの総資産回転率変化"
+        calculation: "difference"
+        unit: "回"
+      
+      # A2AI拡張項目 (3項目)
+      company_age:
+        name: "企業年齢"
+        description: "設立からの経過年数"
+        calculation: "current_year - establishment_year"
+        unit: "年"
+      market_entry_timing:
+        name: "市場参入時期"
+        description: "当該市場への参入時期（先発=1, 後発=0）"
+        calculation: "categorical"
+        unit: "フラグ"
+      parent_dependency_ratio:
+        name: "親会社依存度"
+        description: "親会社からの売上高比率（分社企業の場合）"
+        data_source: "関連当事者取引"
+        unit: "％"
+
+  # 3. 売上高営業利益率 (Operating Profit Margin)
+  operating_profit_margin:
+    name: "売上高営業利益率"
+    description: "営業利益/売上高"
+    unit: "％"
+    category: "traditional"
+    calculation: "営業利益 / 売上高 * 100"
+    factors:
+      # 売上原価構成 (5項目)
+      material_cost_ratio:
+        name: "材料費率"
+        description: "材料費/製造原価"
+        data_source: "製造原価明細書"
+        unit: "％"
+      labor_cost_ratio:
+        name: "労務費率"
+        description: "労務費/製造原価"
+        data_source: "製造原価明細書"
+        unit: "％"
+      overhead_cost_ratio:
+        name: "経費率"
+        description: "製造経費/製造原価"
+        data_source: "製造原価明細書"
+        unit: "％"
+      outsourcing_cost_ratio:
+        name: "外注加工費率"
+        description: "外注加工費/製造原価"
+        data_source: "製造原価明細書"
+        unit: "％"
+      manufacturing_depreciation_ratio:
+        name: "減価償却費率（製造原価）"
+        description: "製造原価の減価償却費率"
+        data_source: "製造原価明細書"
+        unit: "％"
+      
+      # 販管費構成 (5項目)
+      sga_ratio:
+        name: "販売費及び一般管理費率"
+        description: "販管費/売上高"
+        calculation: "derived"
+        unit: "％"
+      sga_personnel_ratio:
+        name: "人件費率（販管費）"
+        description: "販管費人件費/売上高"
+        data_source: "販管費明細"
+        unit: "％"
+      advertising_ratio:
+        name: "広告宣伝費率"
+        description: "広告宣伝費/売上高"
+        calculation: "derived"
+        unit: "％"
+      rd_ratio:
+        name: "研究開発費率"
+        description: "研究開発費/売上高"
+        calculation: "derived"
+        unit: "％"
+      sga_depreciation_ratio:
+        name: "減価償却費率（販管費）"
+        description: "販管費の減価償却費率"
+        data_source: "販管費明細"
+        unit: "％"
+      
+      # 効率性指標 (5項目)
+      value_added_ratio:
+        name: "売上高付加価値率"
+        description: "付加価値/売上高"
+        calculation: "derived"
+        unit: "％"
+      labor_productivity:
+        name: "労働生産性"
+        description: "売上高/従業員数"
+        calculation: "derived"
+        unit: "千円/人"
+      asset_efficiency:
+        name: "設備効率性"
+        description: "売上高/有形固定資産"
+        calculation: "derived"
+        unit: "回"
+      total_asset_turnover:
+        name: "総資産回転率"
+        description: "売上高/平均総資産"
+        calculation: "derived"
+        unit: "回"
+      inventory_turnover:
+        name: "棚卸資産回転率"
+        description: "売上原価/平均棚卸資産"
+        calculation: "derived"
+        unit: "回"
+      
+      # 規模・構造要因 (5項目)
+      revenue_scale:
+        name: "売上高（規模効果）"
+        description: "売上高絶対額による規模効果"
+        data_source: "損益計算書"
+        unit: "百万円"
+      fixed_cost_ratio:
+        name: "固定費率"
+        description: "固定費/総費用"
+        calculation: "estimated"
+        unit: "％"
+      variable_cost_ratio:
+        name: "変動費率"
+        description: "変動費/売上高"
+        calculation: "estimated"
+        unit: "％"
+      overseas_sales_ratio:
+        name: "海外売上高比率"
+        description: "海外売上高/総売上高"
+        data_source: "セグメント情報"
+        unit: "％"
+      segment_concentration:
+        name: "事業セグメント集中度"
+        description: "最大セグメント売上高/総売上高"
+        calculation: "derived"
+        unit: "％"
+      
+      # A2AI拡張項目 (3項目)
+      company_age:
+        name: "企業年齢"
+        description: "設立からの経過年数"
+        calculation: "current_year - establishment_year"
+        unit: "年"
+      market_entry_timing:
+        name: "市場参入時期"
+        description: "当該市場への参入時期（先発=1, 後発=0）"
+        calculation: "categorical"
+        unit: "フラグ"
+      parent_dependency_ratio:
+        name: "親会社依存度"
+        description: "親会社からの売上高比率（分社企業の場合）"
+        data_source: "関連当事者取引"
+        unit: "％"
+
+  # 4. 売上高当期純利益率 (Net Profit Margin)
+  net_profit_margin:
+    name: "売上高当期純利益率"
+    description: "当期純利益/売上高"
+    unit: "％"
+    category: "traditional"
+    calculation: "当期純利益 / 売上高 * 100"
+    factors:
+      # 営業損益要因 (5項目)
+      operating_profit_margin:
+        name: "売上高営業利益率"
+        description: "営業利益/売上高"
+        calculation: "derived"
+        unit: "％"
+      sga_ratio:
+        name: "販売費及び一般管理費率"
+        description: "販管費/売上高"
+        calculation: "derived"
+        unit: "％"
+      cost_of_sales_ratio:
+        name: "売上原価率"
+        description: "売上原価/売上高"
+        calculation: "derived"
+        unit: "％"
+      rd_ratio:
+        name: "研究開発費率"
+        description: "研究開発費/売上高"
+        calculation: "derived"
+        unit: "％"
+      depreciation_ratio:
+        name: "減価償却費率"
+        description: "減価償却費/売上高"
+        calculation: "derived"
+        unit: "％"
+      
+      # 営業外損益 (5項目)
+      interest_dividend_income_ratio:
+        name: "受取利息・配当金（売上高比）"
+        description: "受取利息配当金/売上高"
+        data_source: "損益計算書"
+        unit: "％"
+      interest_expense_ratio:
+        name: "支払利息（売上高比）"
+        description: "支払利息/売上高"
+        data_source: "損益計算書"
+        unit: "％"
+      forex_gain_loss_ratio:
+        name: "為替差損益（売上高比）"
+        description: "為替差損益/売上高"
+        data_source: "損益計算書"
+        unit: "％"
+      equity_method_income:
+        name: "持分法による投資損益"
+        description: "持分法投資損益/売上高"
+        data_source: "損益計算書"
+        unit: "％"
+      non_operating_income_ratio:
+        name: "営業外収益率"
+        description: "営業外収益/売上高"
+        calculation: "derived"
+        unit: "％"
+      
+      # 特別損益・税金 (5項目)
+      extraordinary_gain_ratio:
+        name: "特別利益（売上高比）"
+        description: "特別利益/売上高"
+        data_source: "損益計算書"
+        unit: "％"
+      extraordinary_loss_ratio:
+        name: "特別損失（売上高比）"
+        description: "特別損失/売上高"
+        data_source: "損益計算書"
+        unit: "％"
+      effective_tax_rate:
+        name: "法人税等実効税率"
+        description: "法人税等/税引前利益"
+        calculation: "derived"
+        unit: "％"
+      tax_adjustment:
+        name: "法人税等調整額"
+        description: "繰延税金資産・負債調整額"
+        data_source: "損益計算書"
+        unit: "百万円"
+      pretax_profit_margin:
+        name: "税引前当期純利益率"
+        description: "税引前利益/売上高"
+        calculation: "derived"
+        unit: "％"
+      
+      # 財務構造要因 (5項目)
+      interest_bearing_debt_ratio:
+        name: "有利子負債比率"
+        description: "有利子負債/総資産"
+        calculation: "derived"
+        unit: "％"
+      equity_ratio:
+        name: "自己資本比率"
+        description: "自己資本/総資産"
+        calculation: "derived"
+        unit: "％"
+      investment_securities_valuation:
+        name: "投資有価証券評価損益"
+        description: "有価証券評価損益/売上高"
+        data_source: "損益計算書"
+        unit: "％"
+      fixed_asset_disposal_gain_loss:
+        name: "固定資産売却損益"
+        description: "固定資産売却損益/売上高"
+        data_source: "損益計算書"
+        unit: "％"
+      impairment_loss_ratio:
+        name: "減損損失率"
+        description: "減損損失/売上高"
+        data_source: "損益計算書"
+        unit: "％"
+      
+      # A2AI拡張項目 (3項目)
+      company_age:
+        name: "企業年齢"
+        description: "設立からの経過年数"
+        calculation: "current_year - establishment_year"
+        unit: "年"
+      market_entry_timing:
+        name: "市場参入時期"
+        description: "当該市場への参入時期（先発=1, 後発=0）"
+        calculation: "categorical"
+        unit: "フラグ"
+      parent_dependency_ratio:
+        name: "親会社依存度"
+        description: "親会社からの売上高比率（分社企業の場合）"
+        data_source: "関連当事者取引"
+        unit: "％"
+
+  # 5. ROE (Return on Equity)
+  roe:
+    name: "ROE（自己資本利益率）"
+    description: "当期純利益/平均自己資本"
+    unit: "％"
+    category: "traditional"
+    calculation: "当期純利益 / 平均自己資本 * 100"
+    factors:
+      # 収益性要因（ROA構成） (5項目)
+      net_profit_margin:
+        name: "売上高当期純利益率"
+        description: "当期純利益/売上高"
+        calculation: "derived"
+        unit: "％"
+      total_asset_turnover:
+        name: "総資産回転率"
+        description: "売上高/平均総資産"
+        calculation: "derived"
+        unit: "回"
+      operating_profit_margin:
+        name: "売上高営業利益率"
+        description: "営業利益/売上高"
+        calculation: "derived"
+        unit: "％"
+      cost_of_sales_ratio:
+        name: "売上原価率"
+        description: "売上原価/売上高"
+        calculation: "derived"
+        unit: "％"
+      sga_ratio:
+        name: "販売費及び一般管理費率"
+        description: "販管費/売上高"
+        calculation: "derived"
+        unit: "％"
+      
+      # 財務レバレッジ (5項目)
+      equity_ratio:
+        name: "自己資本比率"
+        description: "自己資本/総資産"
+        calculation: "derived"
+        unit: "％"
+      equity_multiplier:
+        name: "総資産/自己資本倍率"
+        description: "総資産/自己資本"
+        calculation: "derived"
+        unit: "倍"
+      debt_equity_ratio:
+        name: "有利子負債/自己資本比率"
+        description: "有利子負債/自己資本"
+        calculation: "derived"
+        unit: "％"
+      current_ratio:
+        name: "流動比率"
+        description: "流動資産/流動負債"
+        calculation: "derived"
+        unit: "％"
+      fixed_ratio:
+        name: "固定比率"
+        description: "固定資産/自己資本"
+        calculation: "derived"
+        unit: "％"
+      
+      # 資産効率性 (5項目)
+      receivables_turnover:
+        name: "売上債権回転率"
+        description: "売上高/平均売上債権"
+        calculation: "derived"
+        unit: "回"
+      inventory_turnover:
+        name: "棚卸資産回転率"
+        description: "売上原価/平均棚卸資産"
+        calculation: "derived"
+        unit: "回"
+      fixed_asset_turnover:
+        name: "有形固定資産回転率"
+        description: "売上高/平均有形固定資産"
+        calculation: "derived"
+        unit: "回"
+      cash_ratio:
+        name: "現金及び預金/総資産比率"
+        description: "現預金/総資産"
+        calculation: "derived"
+        unit: "％"
+      investment_securities_ratio:
+        name: "投資有価証券/総資産比率"
+        description: "投資有価証券/総資産"
+        calculation: "derived"
+        unit: "％"
+      
+      # 収益・配当政策 (5項目)
+      dividend_payout_ratio:
+        name: "配当性向"
+        description: "配当金/当期純利益"
+        calculation: "derived"
+        unit: "％"
+      retained_earnings_ratio:
+        name: "内部留保率"
+        description: "内部留保/当期純利益"
+        calculation: "derived"
+        unit: "％"
+      non_operating_income_ratio:
+        name: "営業外収益率"
+        description: "営業外収益/売上高"
+        calculation: "derived"
+        unit: "％"
+      extraordinary_items_ratio:
+        name: "特別損益/当期純利益比率"
+        description: "特別損益/当期純利益"
+        calculation: "derived"
+        unit: "％"
+      effective_tax_rate:
+        name: "実効税率"
+        description: "法人税等/税引前利益"
+        calculation: "derived"
+        unit: "％"
+      
+      # A2AI拡張項目 (3項目)
+      company_age:
+        name: "企業年齢"
+        description: "設立からの経過年数"
+        calculation: "current_year - establishment_year"
+        unit: "年"
+      market_entry_timing:
+        name: "市場参入時期"
+        description: "当該市場への参入時期（先発=1, 後発=0）"
+        calculation: "categorical"
+        unit: "フラグ"
+      total_payout_ratio:
+        name: "総還元性向"
+        description: "（配当+自社株買い）/当期純利益"
+        calculation: "derived"
+        unit: "％"
+
+  # 6. 売上高付加価値率 (Value Added Ratio)
+  value_added_ratio:
+    name: "売上高付加価値率"
+    description: "付加価値/売上高"
+    unit: "％"
+    category: "traditional"
+    calculation: "付加価値 / 売上高 * 100"
+    factors:
+      # 技術・研究開発 (5項目)
+      rd_ratio:
+        name: "研究開発費率"
+        description: "研究開発費/売上高"
+        calculation: "derived"
+        unit: "％"
+      intangible_assets_ratio:
+        name: "無形固定資産/売上高比率"
+        description: "無形固定資産/売上高"
+        calculation: "derived"
+        unit: "％"
+      patent_related_cost:
+        name: "特許関連費用"
+        description: "特許・知的財産権関連費用"
+        data_source: "無形固定資産内訳"
+        unit: "百万円"
+      software_ratio:
+        name: "ソフトウェア/売上高比率"
+        description: "ソフトウェア資産/売上高"
+        calculation: "derived"
+        unit: "％"
+      technology_license_income:
+        name: "技術ライセンス収入"
+        description: "技術供与による収入"
+        data_source: "営業外収益"
+        unit: "百万円"
+      
+      # 人的付加価値 (5項目)
+      salary_industry_ratio:
+        name: "平均年間給与/業界平均比率"
+        description: "自社平均給与/業界平均給与"
+        calculation: "external_benchmark"
+        unit: "％"
+      personnel_cost_ratio:
+        name: "人件費率"
+        description: "人件費/売上高"
+        calculation: "derived"
+        unit: "％"
+      employee_per_revenue:
+        name: "従業員数/売上高比率"
+        description: "従業員数/売上高億円"
+        calculation: "derived"
+        unit: "人/億円"
+      retirement_benefit_ratio:
+        name: "退職給付費用率"
+        description: "退職給付費用/売上高"
+        calculation: "derived"
+        unit: "％"
+      welfare_cost_ratio:
+        name: "福利厚生費率"
+        description: "福利厚生費/売上高"
+        calculation: "derived"
+        unit: "％"
+      
+      # コスト構造・効率性 (5項目)
+      cost_of_sales_inverse:
+        name: "売上原価率（逆数）"
+        description: "1 - (売上原価/売上高)"
+        calculation: "derived"
+        unit: "％"
+      material_cost_inverse:
+        name: "材料費率（逆数）"
+        description: "1 - (材料費/製造原価)"
+        calculation: "derived"
+        unit: "％"
+      outsourcing_cost_inverse:
+        name: "外注加工費率（逆数）"
+        description: "1 - (外注加工費/製造原価)"
+        calculation: "derived"
+        unit: "％"
+      labor_productivity:
+        name: "労働生産性"
+        description: "売上高/従業員数"
+        calculation: "derived"
+        unit: "千円/人"
+      asset_productivity:
+        name: "設備生産性"
+        description: "売上高/有形固定資産"
+        calculation: "derived"
+        unit: "回"
+      
+      # 事業構造・差別化 (5項目)
+      overseas_sales_ratio:
+        name: "海外売上高比率"
+        description: "海外売上高/総売上高"
+        data_source: "セグメント情報"
+        unit: "％"
+      high_value_segment_ratio:
+        name: "高付加価値事業セグメント比率"
+        description: "高付加価値セグメント売上高/総売上高"
+        calculation: "derived"
+        unit: "％"
+      service_maintenance_ratio:
+        name: "サービス・保守収入比率"
+        description: "サービス・保守収入/総売上高"
+        data_source: "セグメント情報"
+        unit: "％"
+      operating_profit_margin:
+        name: "営業利益率（付加価値の実現度）"
+        description: "営業利益/売上高"
+        calculation: "derived"
+        unit: "％"
+      brand_intangible_ratio:
+        name: "ブランド・商標等無形資産比率"
+        description: "ブランド・商標/無形固定資産"
+        calculation: "derived"
+        unit: "％"
+      
+      # A2AI拡張項目 (3項目)
+      company_age:
+        name: "企業年齢"
+        description: "設立からの経過年数"
+        calculation: "current_year - establishment_year"
+        unit: "年"
+      market_entry_timing:
+        name: "市場参入時期"
+        description: "当該市場への参入時期（先発=1, 後発=0）"
+        calculation: "categorical"
+        unit: "フラグ"
+      parent_dependency_ratio:
+        name: "親会社依存度"
+        description: "親会社からの売上高比率（分社企業の場合）"
+        data_source: "関連当事者取引"
+        unit: "％"
+
+  # 7. 企業存続確率 (Survival Probability) - A2AI新規評価項目
+  survival_probability:
+    name: "企業存続確率"
+    description: "統計的手法による企業の生存確率"
+    unit: "％"
+    category: "survival"
+    calculation: "cox_regression_model"
+    factors:
+      # 財務健全性要因 (5項目)
+      liquidity_ratio:
+        name: "流動比率"
+        description: "流動資産/流動負債"
+        calculation: "derived"
+        unit: "％"
+      interest_coverage_ratio:
+        name: "インタレストカバレッジ比率"
+        description: "営業利益/支払利息"
+        calculation: "derived"
+        unit: "倍"
+      debt_to_equity:
+        name: "負債資本比率"
+        description: "総負債/自己資本"
+        calculation: "derived"
+        unit: "％"
+      retained_earnings_accumulated:
+        name: "利益剰余金累積額"
+        description: "利益剰余金/総資産"
+        calculation: "derived"
+        unit: "％"
+      cash_flow_stability:
+        name: "営業キャッシュフロー安定性"
+        description: "過去5年営業CF標準偏差"
+        calculation: "statistical"
+        unit: "百万円"
+      
+      # 収益性持続要因 (5項目)
+      profit_trend:
+        name: "利益トレンド"
+        description: "過去5年純利益成長率"
+        calculation: "trend_analysis"
+        unit: "％"
+      margin_stability:
+        name: "利益率安定性"
+        description: "営業利益率の標準偏差"
+        calculation: "statistical"
+        unit: "％"
+      revenue_diversification:
+        name: "売上高分散度"
+        description: "セグメント売上高のハーフィンダール指数"
+        calculation: "derived"
+        unit: "指数"
+      customer_concentration:
+        name: "顧客集中度"
+        description: "上位顧客売上高比率"
+        data_source: "注記情報"
+        unit: "％"
+      market_position_strength:
+        name: "市場地位強度"
+        description: "市場シェア×収益性指標"
+        calculation: "composite"
+        unit: "指数"
+      
+      # 資本効率要因 (5項目)
+      asset_quality:
+        name: "資産品質"
+        description: "不良資産比率の逆数"
+        calculation: "derived"
+        unit: "％"
+      investment_efficiency:
+        name: "投資効率性"
+        description: "設備投資/営業利益増加率"
+        calculation: "derived"
+        unit: "倍"
+      working_capital_management:
+        name: "運転資本管理効率"
+        description: "運転資本/売上高"
+        calculation: "derived"
+        unit: "％"
+      capital_allocation_efficiency:
+        name: "資本配分効率性"
+        description: "ROIC - WACC"
+        calculation: "derived"
+        unit: "％"
+      free_cash_flow_generation:
+        name: "フリーキャッシュフロー創出力"
+        description: "FCF/売上高"
+        calculation: "derived"
+        unit: "％"
+      
+      # 市場適応要因 (5項目)
+      innovation_investment:
+        name: "イノベーション投資率"
+        description: "R&D費/売上高"
+        calculation: "derived"
+        unit: "％"
+      market_expansion_capability:
+        name: "市場拡大能力"
+        description: "海外売上高成長率"
+        calculation: "derived"
+        unit: "％"
+      business_model_flexibility:
+        name: "ビジネスモデル柔軟性"
+        description: "固定費/変動費比率"
+        calculation: "derived"
+        unit: "％"
+      technological_competitiveness:
+        name: "技術競争力"
+        description: "特許数/従業員数"
+        data_source: "知的財産報告書"
+        unit: "件/人"
+      digital_transformation_index:
+        name: "デジタル変革指数"
+        description: "IT投資/総投資"
+        calculation: "derived"
+        unit: "％"
+      
+      # A2AI拡張項目 (3項目)
+      company_age:
+        name: "企業年齢"
+        description: "設立からの経過年数"
+        calculation: "current_year - establishment_year"
+        unit: "年"
+      market_entry_timing:
+        name: "市場参入時期"
+        description: "当該市場への参入時期（先発=1, 後発=0）"
+        calculation: "categorical"
+        unit: "フラグ"
+      parent_dependency_ratio:
+        name: "親会社依存度"
+        description: "親会社からの売上高比率（分社企業の場合）"
+        data_source: "関連当事者取引"
+        unit: "％"
+
+  # 8. 新規事業成功率 (New Business Success Rate) - A2AI新規評価項目
+  new_business_success_rate:
+    name: "新規事業成功率"
+    description: "新規事業・製品の市場成功確率"
+    unit: "％"
+    category: "emergence"
+    calculation: "success_prediction_model"
+    factors:
+      # 技術・イノベーション要因 (5項目)
+      rd_intensity:
+        name: "R&D集約度"
+        description: "研究開発費/売上高"
+        calculation: "derived"
+        unit: "％"
+      patent_portfolio_strength:
+        name: "特許ポートフォリオ強度"
+        description: "有効特許数/業界平均"
+        data_source: "知的財産報告書"
+        unit: "倍"
+      technology_transfer_capability:
+        name: "技術移転能力"
+        description: "ライセンス収入/R&D投資"
+        calculation: "derived"
+        unit: "％"
+      innovation_pipeline:
+        name: "イノベーションパイプライン"
+        description: "開発ステージ別プロジェクト数"
+        data_source: "研究開発報告書"
+        unit: "件"
+      technological_collaboration:
+        name: "技術協業度"
+        description: "共同研究・提携数/年"
+        data_source: "事業報告書"
+        unit: "件"
+      
+      # 市場進出要因 (5項目)
+      market_timing_accuracy:
+        name: "市場タイミング精度"
+        description: "新製品投入タイミングスコア"
+        calculation: "historical_analysis"
+        unit: "点"
+      customer_needs_alignment:
+        name: "顧客ニーズ適合度"
+        description: "市場調査投資/新規事業投資"
+        calculation: "derived"
+        unit: "％"
+      distribution_channel_strength:
+        name: "販売チャネル強度"
+        description: "既存チャネル活用可能性"
+        calculation: "qualitative_score"
+        unit: "点"
+      brand_leverage_ability:
+        name: "ブランド活用力"
+        description: "既存ブランド認知度×新規事業関連性"
+        calculation: "composite"
+        unit: "指数"
+      competitive_differentiation:
+        name: "競争差別化度"
+        description: "新規事業の独自性スコア"
+        calculation: "qualitative_score"
+        unit: "点"
+      
+      # 経営資源配分要因 (5項目)
+      resource_allocation_efficiency:
+        name: "経営資源配分効率"
+        description: "新規事業投資/既存事業投資"
+        calculation: "derived"
+        unit: "％"
+      human_capital_investment:
+        name: "人的資本投資"
+        description: "新規事業専任者数/総従業員数"
+        calculation: "derived"
+        unit: "％"
+      financial_commitment:
+        name: "財務コミット度"
+        description: "新規事業投資継続期間"
+        calculation: "derived"
+        unit: "年"
+      cross_functional_integration:
+        name: "機能横断統合度"
+        description: "部門間協業プロジェクト数"
+        data_source: "組織運営報告"
+        unit: "件"
+      external_partnership_leverage:
+        name: "外部パートナーシップ活用"
+        description: "戦略的提携数/新規事業数"
+        calculation: "derived"
+        unit: "件"
+      
+      # 学習・適応要因 (5項目)
+      failure_tolerance:
+        name: "失敗許容度"
+        description: "撤退事業数/新規事業着手数"
+        calculation: "derived"
+        unit: "％"
+      pivot_capability:
+        name: "事業転換能力"
+        description: "戦略変更実施回数/事業"
+        calculation: "derived"
+        unit: "回"
+      market_feedback_responsiveness:
+        name: "市場フィードバック応答性"
+        description: "製品改良サイクル期間"
+        calculation: "derived"
+        unit: "月"
+      organizational_learning:
+        name: "組織学習能力"
+        description: "ナレッジマネジメントシステム活用度"
+        calculation: "qualitative_score"
+        unit: "点"
+      agility_index:
+        name: "アジリティ指数"
+        description: "意思決定速度×実行速度"
+        calculation: "composite"
+        unit: "指数"
+      
+      # A2AI拡張項目 (3項目)
+      company_age:
+        name: "企業年齢"
+        description: "設立からの経過年数"
+        calculation: "current_year - establishment_year"
+        unit: "年"
+      market_entry_timing:
+        name: "市場参入時期"
+        description: "当該市場への参入時期（先発=1, 後発=0）"
+        calculation: "categorical"
+        unit: "フラグ"
+      parent_dependency_ratio:
+        name: "親会社依存度"
+        description: "親会社からの売上高比率（分社企業の場合）"
+        data_source: "関連当事者取引"
+        unit: "％"
+
+  # 9. 事業継承成功度 (Business Succession Success) - A2AI新規評価項目
+  business_succession_success:
+    name: "事業継承成功度"
+    description: "M&A・分社化・統合の成功度"
+    unit: "点"
+    category: "succession"
+    calculation: "succession_evaluation_model"
+    factors:
+      # 統合効率要因 (5項目)
+      synergy_realization_rate:
+        name: "シナジー実現率"
+        description: "実現シナジー/予想シナジー"
+        calculation: "derived"
+        unit: "％"
+      integration_speed:
+        name: "統合速度"
+        description: "統合完了期間"
+        calculation: "derived"
+        unit: "月"
+      cost_reduction_achievement:
+        name: "コスト削減達成度"
+        description: "実現コスト削減/目標削減"
+        calculation: "derived"
+        unit: "％"
+      operational_efficiency_improvement:
+        name: "オペレーション効率改善"
+        description: "統合後効率性指標改善率"
+        calculation: "derived"
+        unit: "％"
+      duplicate_function_elimination:
+        name: "重複機能排除効率"
+        description: "重複排除による削減額/統合コスト"
+        calculation: "derived"
+        unit: "％"
+      
+      # 文化統合要因 (5項目)
+      cultural_integration_success:
+        name: "企業文化統合成功度"
+        description: "従業員満足度×離職率改善"
+        calculation: "composite"
+        unit: "指数"
+      employee_retention_rate:
+        name: "従業員定着率"
+        description: "統合後2年間の定着率"
+        calculation: "derived"
+        unit: "％"
+      management_continuity:
+        name: "経営陣継続性"
+        description: "統合後の経営陣残存率"
+        calculation: "derived"
+        unit: "％"
+      knowledge_transfer_effectiveness:
+        name: "知識移転効果"
+        description: "ノウハウ継承成功率"
+        calculation: "qualitative_score"
+        unit: "点"
+      communication_integration:
+        name: "コミュニケーション統合度"
+        description: "組織間情報共有効率"
+        calculation: "qualitative_score"
+        unit: "点"
+      
+      # 財務成果要因 (5項目)
+      revenue_synergy:
+        name: "売上シナジー"
+        description: "統合による売上高増加額"
+        calculation: "derived"
+        unit: "百万円"
+      profitability_improvement:
+        name: "収益性改善度"
+        description: "統合後営業利益率改善"
+        calculation: "derived"
+        unit: "ポイント"
+      asset_utilization_efficiency:
+        name: "資産活用効率性"
+        description: "統合後総資産回転率改善"
+        calculation: "derived"
+        unit: "回"
+      financial_leverage_optimization:
+        name: "財務レバレッジ最適化"
+        description: "統合後財務構造改善度"
+        calculation: "derived"
+        unit: "指数"
+      cash_flow_enhancement:
+        name: "キャッシュフロー向上"
+        description: "統合後FCF改善額"
+        calculation: "derived"
+        unit: "百万円"
+      
+      # 戦略的価値要因 (5項目)
+      market_position_strengthening:
+        name: "市場地位強化度"
+        description: "統合後市場シェア拡大"
+        calculation: "derived"
+        unit: "ポイント"
+      competitive_advantage_creation:
+        name: "競争優位創出度"
+        description: "新規競争優位獲得数"
+        calculation: "qualitative_score"
+        unit: "件"
+      strategic_capability_enhancement:
+        name: "戦略的能力向上"
+        description: "統合によるケイパビリティ拡張"
+        calculation: "qualitative_score"
+        unit: "点"
+      innovation_capacity_expansion:
+        name: "イノベーション能力拡大"
+        description: "統合後R&D効果向上"
+        calculation: "derived"
+        unit: "％"
+      global_competitiveness_improvement:
+        name: "グローバル競争力改善"
+        description: "海外事業統合効果"
+        calculation: "derived"
+        unit: "指数"
+      
+      # A2AI拡張項目 (3項目)
+      company_age:
+        name: "企業年齢"
+        description: "設立からの経過年数"
+        calculation: "current_year - establishment_year"
+        unit: "年"
+      market_entry_timing:
+        name: "市場参入時期"
+        description: "当該市場への参入時期（先発=1, 後発=0）"
+        calculation: "categorical"
+        unit: "フラグ"
+      parent_dependency_ratio:
+        name: "親会社依存度"
+        description: "親会社からの売上高比率（分社企業の場合）"
+        data_source: "関連当事者取引"
+        unit: "％"
+
+# データ品質・計算方法定義
+data_quality_standards:
+  missing_value_threshold: 0.3  # 30%以上欠損の場合は除外
+  outlier_detection_method: "iqr"  # IQR法による外れ値検出
+  normalization_method: "z_score"  # Zスコア正規化
+  temporal_alignment: "fiscal_year"  # 会計年度ベース整合
+
+calculation_methods:
+  year_over_year:
+    formula: "(current_year - previous_year) / previous_year * 100"
+    description: "前年同期比成長率"
+  
+  derived:
+    description: "他の財務データから導出される指標"
+    validation: "cross_check_with_source"
+  
+  statistical:
+    description: "統計的手法により算出される指標"
+    methods: ["standard_deviation", "trend_analysis", "moving_average"]
+  
+  composite:
+    description: "複数指標を組み合わせた合成指標"
+    validation: "component_consistency_check"
+  
+  qualitative_score:
+    description: "定性的評価による点数化"
+    scale: "1-10"
+    validation: "expert_evaluation"
+
+# A2AI特有の分析パラメータ
+survival_analysis_parameters:
+  time_unit: "years"  # 時間単位：年
+  censoring_threshold: 40  # 40年以上存続は打ち切り
+  hazard_model: "cox_regression"  # Cox回帰モデル使用
+  survival_probability_calculation: "kaplan_meier"  # Kaplan-Meier法
+
+emergence_analysis_parameters:
+  success_definition: "5_year_profitability"  # 5年間収益性維持を成功と定義
+  evaluation_period: 5  # 評価期間：5年
+  success_threshold: 0.05  # 営業利益率5%以上を成功基準
+  
+succession_analysis_parameters:
+  evaluation_period: 3  # 統合評価期間：3年
+  success_metrics: ["financial", "operational", "strategic"]  # 成功指標カテゴリ
+  weight_distribution:  # 各カテゴリの重み
+    financial: 0.4
+    operational: 0.3
+    strategic: 0.3

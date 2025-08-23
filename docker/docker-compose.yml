@@ -1,0 +1,325 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database for storing financial data
+  database:
+    image: postgres:15-alpine
+    container_name: a2ai_database
+    environment:
+      POSTGRES_DB: a2ai_financial_db
+      POSTGRES_USER: a2ai_user
+      POSTGRES_PASSWORD: a2ai_secure_password
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - a2ai_network
+
+  # Redis for caching and session management
+  redis:
+    image: redis:7-alpine
+    container_name: a2ai_redis
+    command: redis-server --appendonly yes --requirepass a2ai_redis_password
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    networks:
+      - a2ai_network
+
+  # Main A2AI Application
+  a2ai_app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: a2ai_main_app
+    environment:
+      # Database Configuration
+      DATABASE_URL: postgresql://a2ai_user:a2ai_secure_password@database:5432/a2ai_financial_db
+      
+      # Redis Configuration
+      REDIS_URL: redis://:a2ai_redis_password@redis:6379/0
+      
+      # API Configuration
+      API_HOST: 0.0.0.0
+      API_PORT: 8000
+      API_WORKERS: 4
+      
+      # EDINET API Configuration
+      EDINET_API_KEY: ${EDINET_API_KEY}
+      EDINET_BASE_URL: https://disclosure.edinet-fsa.go.jp/api/v2
+      
+      # Machine Learning Configuration
+      ML_MODEL_PATH: /app/results/models
+      CUDA_VISIBLE_DEVICES: ${CUDA_VISIBLE_DEVICES:-}
+      
+      # Logging Configuration
+      LOG_LEVEL: INFO
+      LOG_FORMAT: json
+      
+      # Security Configuration
+      SECRET_KEY: ${SECRET_KEY}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      
+      # Data Collection Configuration
+      DATA_COLLECTION_BATCH_SIZE: 100
+      MAX_RETRY_ATTEMPTS: 3
+      REQUEST_DELAY_SECONDS: 1
+      
+      # Analysis Configuration
+      SURVIVAL_ANALYSIS_ENABLED: true
+      EMERGENCE_ANALYSIS_ENABLED: true
+      CAUSAL_INFERENCE_ENABLED: true
+      
+      # Notification Configuration
+      NOTIFICATION_EMAIL: ${NOTIFICATION_EMAIL}
+      SMTP_SERVER: ${SMTP_SERVER}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_USERNAME: ${SMTP_USERNAME}
+      SMTP_PASSWORD: ${SMTP_PASSWORD}
+    volumes:
+      - ../data:/app/data
+      - ../results:/app/results
+      - ../logs:/app/logs
+      - ../config:/app/config
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+      - redis
+    restart: unless-stopped
+    networks:
+      - a2ai_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Jupyter Notebook for Analysis
+  jupyter:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.jupyter
+    container_name: a2ai_jupyter
+    environment:
+      JUPYTER_ENABLE_LAB: "yes"
+      JUPYTER_TOKEN: a2ai_jupyter_token
+      DATABASE_URL: postgresql://a2ai_user:a2ai_secure_password@database:5432/a2ai_financial_db
+      REDIS_URL: redis://:a2ai_redis_password@redis:6379/0
+    volumes:
+      - ../notebooks:/home/jovyan/notebooks
+      - ../data:/home/jovyan/data
+      - ../results:/home/jovyan/results
+      - ../src:/home/jovyan/src
+    ports:
+      - "8888:8888"
+    depends_on:
+      - database
+      - redis
+    restart: unless-stopped
+    networks:
+      - a2ai_network
+
+  # Data Collection Worker
+  data_collector:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: a2ai_data_collector
+    command: python scripts/collect_all_data.py
+    environment:
+      DATABASE_URL: postgresql://a2ai_user:a2ai_secure_password@database:5432/a2ai_financial_db
+      REDIS_URL: redis://:a2ai_redis_password@redis:6379/0
+      EDINET_API_KEY: ${EDINET_API_KEY}
+      WORKER_TYPE: data_collector
+      COLLECTION_MODE: ${COLLECTION_MODE:-incremental}
+      TARGET_COMPANIES: 150
+      TARGET_YEARS: 40
+    volumes:
+      - ../data:/app/data
+      - ../logs:/app/logs
+      - ../config:/app/config
+    depends_on:
+      - database
+      - redis
+    restart: "no"
+    networks:
+      - a2ai_network
+
+  # Model Training Worker
+  model_trainer:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: a2ai_model_trainer
+    command: python scripts/train_comprehensive_models.py
+    environment:
+      DATABASE_URL: postgresql://a2ai_user:a2ai_secure_password@database:5432/a2ai_financial_db
+      REDIS_URL: redis://:a2ai_redis_password@redis:6379/0
+      CUDA_VISIBLE_DEVICES: ${CUDA_VISIBLE_DEVICES:-}
+      MODEL_TRAINING_MODE: ${MODEL_TRAINING_MODE:-comprehensive}
+      ENABLE_GPU: ${ENABLE_GPU:-false}
+    volumes:
+      - ../data:/app/data
+      - ../results:/app/results
+      - ../logs:/app/logs
+      - ../config:/app/config
+    depends_on:
+      - database
+      - redis
+    restart: "no"
+    networks:
+      - a2ai_network
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  # Web Interface
+  web_interface:
+    build:
+      context: ../web_interface
+      dockerfile: Dockerfile
+    container_name: a2ai_web_interface
+    environment:
+      REACT_APP_API_BASE_URL: http://a2ai_app:8000
+      REACT_APP_JUPYTER_URL: http://jupyter:8888
+    volumes:
+      - ../web_interface/build:/usr/share/nginx/html
+    ports:
+      - "3000:80"
+    depends_on:
+      - a2ai_app
+    restart: unless-stopped
+    networks:
+      - a2ai_network
+
+  # Analysis Scheduler
+  scheduler:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: a2ai_scheduler
+    command: python scripts/analysis_scheduler.py
+    environment:
+      DATABASE_URL: postgresql://a2ai_user:a2ai_secure_password@database:5432/a2ai_financial_db
+      REDIS_URL: redis://:a2ai_redis_password@redis:6379/0
+      SCHEDULE_MODE: ${SCHEDULE_MODE:-daily}
+      ANALYSIS_TYPES: "survival,emergence,traditional,causal"
+    volumes:
+      - ../data:/app/data
+      - ../results:/app/results
+      - ../logs:/app/logs
+      - ../config:/app/config
+    depends_on:
+      - database
+      - redis
+      - a2ai_app
+    restart: unless-stopped
+    networks:
+      - a2ai_network
+
+  # Monitoring and Alerting
+  monitoring:
+    image: prom/prometheus:latest
+    container_name: a2ai_monitoring
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+    networks:
+      - a2ai_network
+
+  # Log Aggregation
+  log_aggregator:
+    image: grafana/loki:latest
+    container_name: a2ai_log_aggregator
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./monitoring/loki-config.yaml:/etc/loki/local-config.yaml
+      - loki_data:/loki
+    ports:
+      - "3100:3100"
+    restart: unless-stopped
+    networks:
+      - a2ai_network
+
+  # Visualization Dashboard
+  grafana:
+    image: grafana/grafana:latest
+    container_name: a2ai_grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: a2ai_grafana_admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+      - ./monitoring/grafana-dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
+    ports:
+      - "3001:3000"
+    depends_on:
+      - monitoring
+      - log_aggregator
+    restart: unless-stopped
+    networks:
+      - a2ai_network
+
+  # Backup Service
+  backup:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.backup
+    container_name: a2ai_backup
+    environment:
+      DATABASE_URL: postgresql://a2ai_user:a2ai_secure_password@database:5432/a2ai_financial_db
+      BACKUP_SCHEDULE: "0 2 * * *"  # Daily at 2 AM
+      BACKUP_RETENTION_DAYS: 30
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      S3_BUCKET: ${S3_BACKUP_BUCKET}
+    volumes:
+      - ../data:/app/data
+      - ../results:/app/results
+      - backup_data:/app/backups
+    depends_on:
+      - database
+    restart: unless-stopped
+    networks:
+      - a2ai_network
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+  loki_data:
+    driver: local
+  backup_data:
+    driver: local
+
+networks:
+  a2ai_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

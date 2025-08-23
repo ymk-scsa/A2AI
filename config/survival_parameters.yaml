@@ -1,0 +1,343 @@
+# A2AI (Advanced Financial Analysis AI) - Survival Analysis Parameters
+# 企業生存分析のための包括的パラメータ設定
+
+# =============================================================================
+# 基本設定 (Basic Configuration)
+# =============================================================================
+version: "1.0.0"
+analysis_period: "1984-2024"
+total_years: 40
+last_updated: "2024-12-01"
+
+# =============================================================================
+# 企業分類定義 (Company Classification)
+# =============================================================================
+market_categories:
+  high_share:
+    name: "現在もシェアが高い市場"
+    description: "世界市場でのシェアを維持・拡大している企業群"
+    markets:
+      - "ロボット市場"
+      - "内視鏡市場（医療用）"
+      - "工作機械市場"
+      - "電子材料（高機能部材）"
+      - "精密測定機器"
+    total_companies: 50
+    expected_survival_rate: 0.95  # 95%の企業が分析期間中存続
+    
+  declining_share:
+    name: "現在進行形でシェア低下中のメジャー市場"
+    description: "世界シェアが低下傾向にある企業群"
+    markets:
+      - "自動車市場（EV含む）"
+      - "鉄鋼市場（汎用品中心）"
+      - "スマート家電市場"
+      - "バッテリー市場（EV用）"
+      - "PC・周辺機器市場"
+    total_companies: 50
+    expected_survival_rate: 0.85  # 85%の企業が分析期間中存続
+    
+  lost_share:
+    name: "完全にシェアを失ったメジャー市場"
+    description: "世界市場から撤退・消滅した企業群"
+    markets:
+      - "家電（テレビ・冷蔵庫・洗濯機など）"
+      - "半導体市場（ロジック・メモリ）"
+      - "スマートフォン市場"
+      - "PC市場"
+      - "通信機器市場（携帯・基地局・交換機など）"
+    total_companies: 50
+    expected_survival_rate: 0.60  # 60%の企業が分析期間中存続
+
+# =============================================================================
+# 生存イベント定義 (Survival Event Definition)
+# =============================================================================
+survival_events:
+  # 生存成功イベント (Survival Success Events)
+  success_events:
+    - "continuous_operation"    # 継続営業
+    - "market_expansion"        # 市場拡大
+    - "spinoff_success"         # 分社化成功
+    - "acquisition_survival"    # 買収後存続
+    - "business_transformation" # 事業転換成功
+    
+  # 生存終了イベント (Survival Termination Events)
+  termination_events:
+    bankruptcy:
+      code: "BNKR"
+      description: "倒産・破綻"
+      examples: ["三洋電機", "FCNT"]
+      weight: 1.0  # 完全な生存終了
+      
+    acquisition_dissolution:
+      code: "ACDIS"
+      description: "買収による事実上の解体"
+      examples: ["東芝ライフスタイル→美的集団", "NEC PC→Lenovo"]
+      weight: 0.8  # 部分的な生存終了
+      
+    business_withdrawal:
+      code: "BWTHD"
+      description: "事業撤退・市場からの完全撤退"
+      examples: ["ソニーVAIO売却", "富士通PC事業撤退"]
+      weight: 0.9  # ほぼ完全な生存終了
+      
+    spinoff_independence:
+      code: "SPIND"
+      description: "分社化による独立（データ継続性断絶）"
+      examples: ["キオクシア（東芝メモリから独立）", "プロテリアル（日立金属から独立）"]
+      weight: 0.3  # 軽微な生存終了（実際は継続）
+      
+    brand_discontinuation:
+      code: "BRDIS"
+      description: "ブランド廃止・事業縮小"
+      examples: ["アイワブランド廃止", "ビクター縮小"]
+      weight: 0.6  # 中程度の生存終了
+
+# =============================================================================
+# 生存分析モデル設定 (Survival Analysis Model Configuration)
+# =============================================================================
+survival_models:
+  cox_regression:
+    enabled: true
+    baseline_hazard: "breslow"  # breslow, efron
+    ties_method: "breslow"
+    alpha: 0.05  # 有意水準
+    max_iterations: 100
+    convergence_tolerance: 1e-6
+    
+  kaplan_meier:
+    enabled: true
+    confidence_level: 0.95
+    plot_style: "step"
+    
+  parametric_models:
+    enabled: true
+    distributions:
+      - "weibull"
+      - "exponential" 
+      - "lognormal"
+      - "gamma"
+    model_selection_criterion: "AIC"  # AIC, BIC
+    
+  machine_learning_survival:
+    enabled: true
+    models:
+      - "random_survival_forest"
+      - "gradient_boosting_survival"
+      - "neural_network_survival"
+    cross_validation_folds: 5
+    
+# =============================================================================
+# 時間軸設定 (Time Axis Configuration)
+# =============================================================================
+time_configuration:
+  base_year: 1984
+  end_year: 2024
+  time_unit: "years"
+  
+  # 企業年齢による分析区間
+  age_segments:
+    startup: [0, 5]      # 設立0-5年: スタートアップ期
+    growth: [6, 15]      # 設立6-15年: 成長期
+    maturity: [16, 30]   # 設立16-30年: 成熟期
+    longevity: [31, 100] # 設立31年以上: 長寿企業期
+    
+  # 市場ライフサイクル分析区間
+  market_periods:
+    emergence: [1984, 1990]    # 市場黎明期
+    growth: [1991, 2000]       # 市場成長期
+    maturity: [2001, 2010]     # 市場成熟期
+    digital_transformation: [2011, 2020]  # デジタル変革期
+    sustainable_era: [2021, 2024]         # 持続可能性時代
+
+# =============================================================================
+# 生存バイアス補正設定 (Survivorship Bias Correction)
+# =============================================================================
+bias_correction:
+  methods:
+    inverse_probability_weighting:
+      enabled: true
+      weight_calculation: "propensity_score"
+      stabilization: true
+      
+    left_truncation_adjustment:
+      enabled: true
+      entry_time_variable: "establishment_year"
+      
+    right_censoring_handling:
+      enabled: true
+      censoring_indicators:
+        - "study_end_censoring"     # 研究終了時点での打ち切り
+        - "acquisition_censoring"   # 買収による打ち切り
+        - "spinoff_censoring"      # 分社化による打ち切り
+        
+  missing_data_imputation:
+    method: "multiple_imputation"  # multiple_imputation, forward_fill, backward_fill
+    n_imputations: 5
+    
+# =============================================================================
+# 特徴量重要度設定 (Feature Importance Configuration)
+# =============================================================================
+feature_importance:
+  # 評価項目（従属変数）
+  target_variables:
+    primary: "survival_time"
+    secondary: "event_occurred" 
+    
+  # 要因項目（独立変数）カテゴリ
+  factor_categories:
+    financial_health:
+      weight: 0.25
+      factors:
+        - "売上高営業利益率"
+        - "ROE"
+        - "自己資本比率"
+        - "流動比率"
+        
+    growth_capability:
+      weight: 0.20
+      factors:
+        - "売上高成長率" 
+        - "設備投資増加率"
+        - "研究開発費増加率"
+        - "海外売上高比率変化"
+        
+    operational_efficiency:
+      weight: 0.20
+      factors:
+        - "総資産回転率"
+        - "労働生産性"
+        - "売上高付加価値率"
+        - "棚卸資産回転率"
+        
+    market_position:
+      weight: 0.15
+      factors:
+        - "市場シェア"
+        - "海外売上高比率"
+        - "ブランド価値"
+        - "競合他社数"
+        
+    innovation_investment:
+      weight: 0.20
+      factors:
+        - "研究開発費率"
+        - "無形固定資産比率"
+        - "特許取得数"
+        - "新製品売上比率"
+
+# =============================================================================
+# 企業個別設定 (Company-Specific Configuration)
+# =============================================================================
+company_specific_adjustments:
+  # 継続存続企業（80社）
+  continuous_survivors:
+    data_quality: "high"
+    observation_period: "complete"  # 1984-2024 完全データ
+    bias_adjustment: "minimal"
+    
+  # 消滅・吸収企業（35社）
+  terminated_companies:
+    data_quality: "medium"
+    observation_period: "partial"   # 1984-消滅年まで
+    bias_adjustment: "moderate"
+    special_handling:
+      - "pre_termination_analysis"   # 消滅前兆分析
+      - "deterioration_pattern"      # 悪化パターン分析
+      
+  # 新設・分社企業（35社）
+  new_establishments:
+    data_quality: "medium"
+    observation_period: "recent"    # 設立年-2024
+    bias_adjustment: "high"
+    special_handling:
+      - "parent_company_adjustment"  # 親会社データ調整
+      - "spinoff_effect_analysis"    # 分社効果分析
+
+# =============================================================================
+# 統計的検定設定 (Statistical Testing Configuration) 
+# =============================================================================
+statistical_tests:
+  survival_comparison:
+    log_rank_test:
+      enabled: true
+      alpha: 0.05
+      
+    cox_regression_test:
+      enabled: true
+      proportional_hazards_test: true
+      
+    pairwise_comparisons:
+      enabled: true
+      multiple_comparison_correction: "bonferroni"
+      
+  model_validation:
+    concordance_index:
+      enabled: true
+      bootstrap_samples: 1000
+      
+    time_dependent_roc:
+      enabled: true
+      time_points: [5, 10, 15, 20, 25, 30, 35, 40]
+      
+    calibration_plot:
+      enabled: true
+      n_groups: 10
+
+# =============================================================================
+# アウトプット設定 (Output Configuration)
+# =============================================================================
+output_settings:
+  survival_curves:
+    plot_format: ["png", "pdf", "svg"]
+    confidence_intervals: true
+    risk_tables: true
+    
+  hazard_ratios:
+    forest_plots: true
+    confidence_level: 0.95
+    
+  model_summaries:
+    detailed_coefficients: true
+    model_diagnostics: true
+    residual_analysis: true
+    
+  survival_predictions:
+    prediction_horizons: [1, 3, 5, 10]  # 1年、3年、5年、10年後の生存確率
+    individual_predictions: true
+    risk_stratification: true
+
+# =============================================================================
+# 計算パフォーマンス設定 (Computational Performance)
+# =============================================================================
+performance_settings:
+  parallel_processing:
+    enabled: true
+    n_cores: 4
+    
+  memory_optimization:
+    chunk_size: 1000
+    lazy_loading: true
+    
+  caching:
+    intermediate_results: true
+    model_cache: true
+    cache_expiry_days: 30
+
+# =============================================================================
+# 警告・エラー処理設定 (Warning and Error Handling)
+# =============================================================================
+error_handling:
+  warnings:
+    proportional_hazards_violation: "warn"
+    small_sample_size: "warn"
+    missing_data_threshold: 0.1  # 10%以上の欠損で警告
+    
+  errors:
+    convergence_failure: "retry_with_adjusted_parameters"
+    insufficient_events: "switch_to_parametric_model"
+    
+  logging:
+    level: "INFO"
+    log_file: "survival_analysis.log"
+    rotation: "daily"
