@@ -318,9 +318,9 @@ ARG VERSION
 LABEL org.label-schema.build-date=$BUILD_DATE \
         org.label-schema.name="A2AI" \
         org.label-schema.description="Advanced Financial Analysis AI with Survival Analysis" \
-        org.label-schema.url="https://github.com/your-org/A2AI" \
+        org.label-schema.url="https://github.com/ymk-scsa/A2AI" \
         org.label-schema.vcs-ref=$VCS_REF \
-        org.label-schema.vcs-url="https://github.com/your-org/A2AI" \
+        org.label-schema.vcs-url="https://github.com/ymk-scsa/A2AI" \
         org.label-schema.vendor="A2AI Team" \
         org.label-schema.version=$VERSION \
         org.label-schema.schema-version="1.0"
